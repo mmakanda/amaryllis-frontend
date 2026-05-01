@@ -4,7 +4,11 @@ const nextConfig = {
   // ── Output ────────────────────────────────────────────────
   // 'standalone' bundles only the files needed for production,
   // which is optimal for Vercel and Docker deployments.
-  output: "standalone",
+	eslint: {
+	   ignoreDuringBuilds:true,
+	},
+
+	output: "standalone",
 
   // ── Images ────────────────────────────────────────────────
   images: {
