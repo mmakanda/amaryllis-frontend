@@ -1,8 +1,0 @@
-{
-  "/(public)/page": "app/(public)/page.js",
-  "/(public)/agriculture/page": "app/(public)/agriculture/page.js",
-  "/(public)/construction/page": "app/(public)/construction/page.js",
-  "/(public)/it-consultancy/page": "app/(public)/it-consultancy/page.js",
-  "/(public)/managed-services/page": "app/(public)/managed-services/page.js",
-  "/(public)/ai-showcase/page": "app/(public)/ai-showcase/page.js"
-}
