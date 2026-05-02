@@ -5,7 +5,7 @@ import { AnimatedSection } from "@/components/sections/animated-section";
 
 export const metadata: Metadata = {
   title: "AI Showcase",
-  description: "See how Amaryllis Success deploys open-source AI across agriculture, construction, and IT consultancy — from crop disease detection to automated BOQs.",
+  description: "See how Amaryllis Success deploys AI across agriculture, construction, and IT consultancy — from crop disease detection to automated BOQs.",
 };
 
 const CASES = [
@@ -18,7 +18,6 @@ const CASES = [
     problem: "Farmers lose 20–40% of yields to diseases and pests that are identified too late for effective intervention.",
     solution: "A computer-vision model trained on 50,000+ images of Zimbabwean crop diseases runs on-device, giving instant diagnosis from a smartphone photo.",
     outcome: "Up to 60% reduction in crop loss. 3,000+ farmers using the app across Mashonaland and Manicaland.",
-    tech: ["Computer Vision (ResNet-50)", "React Native app", "Offline-first SQLite", "FastAPI backend"],
   },
   {
     pillar: "Agriculture",
@@ -27,9 +26,8 @@ const CASES = [
     icon: "💧",
     title: "AI Irrigation Scheduler",
     problem: "Over-irrigation wastes water and nutrients; under-irrigation stunts growth. Manual scheduling is imprecise and labour-intensive.",
-    solution: "IoT soil-moisture sensors feed a recurrent neural network that predicts optimal irrigation windows 48 hours ahead, accounting for weather forecasts.",
+    solution: "IoT soil-moisture sensors feed a predictive model that forecasts optimal irrigation windows 48 hours ahead, accounting for weather and crop stage.",
     outcome: "35–40% water savings. Automated pump control reduces labour by 8 hours/week per farm.",
-    tech: ["LSTM time-series model", "ESP32 IoT sensors", "MQTT broker", "Grafana dashboards"],
   },
   {
     pillar: "Construction",
@@ -38,9 +36,8 @@ const CASES = [
     icon: "📋",
     title: "Automated BOQ Generation",
     problem: "Preparing a Bill of Quantities manually from engineering drawings takes 2–3 weeks and is prone to costly errors.",
-    solution: "A document-intelligence pipeline extracts dimensions and materials from PDF drawings, then generates a structured BOQ using an LLM with domain-specific fine-tuning.",
+    solution: "A document-intelligence pipeline extracts dimensions and materials from engineering drawings, then generates a structured BOQ automatically.",
     outcome: "BOQ preparation time reduced from 3 weeks to 2 days. Error rate dropped by 78%.",
-    tech: ["GPT-4V / LLaMA 3 Vision", "LayoutLM document AI", "Python extraction pipeline", "Excel/PDF output"],
   },
   {
     pillar: "Construction",
@@ -50,8 +47,7 @@ const CASES = [
     title: "AI Site Progress Monitoring",
     problem: "Project managers can't be on-site 24/7. Delays and safety violations go undetected until weekly inspections.",
     solution: "IP cameras with an on-edge AI model detect construction progress milestones, PPE compliance, and unauthorised access — sending real-time alerts to project dashboards.",
-    outcome: "Clients receive automated daily progress videos and milestone alerts. Safety incidents reduced by 45%.",
-    tech: ["YOLOv8 object detection", "RTSP camera feeds", "Edge computing (Jetson Nano)", "WebSocket dashboard"],
+    outcome: "Clients receive automated daily progress reports and milestone alerts. Safety incidents reduced by 45%.",
   },
   {
     pillar: "IT Consultancy",
@@ -60,9 +56,8 @@ const CASES = [
     icon: "🤖",
     title: "Enterprise AI Chatbot (Amara)",
     problem: "Businesses waste hours answering repetitive customer enquiries. Support teams are overloaded with routine questions.",
-    solution: "A self-hosted Mistral 7B model fine-tuned on the client's product knowledge base, deployed as a secure API with full conversation history — no third-party data exposure.",
+    solution: "A proprietary AI model fine-tuned on the client's product knowledge base, deployed as a secure API with full conversation history and no third-party data exposure.",
     outcome: "70% of routine enquiries handled without human intervention. 24/7 availability at near-zero marginal cost.",
-    tech: ["Mistral 7B / LLaMA 3", "LangChain orchestration", "FastAPI + WebSockets", "Ollama self-host"],
   },
   {
     pillar: "IT Consultancy",
@@ -71,9 +66,8 @@ const CASES = [
     icon: "📊",
     title: "Intelligent Business Dashboard",
     problem: "Decision-makers rely on static spreadsheets and delayed reports. Real-time visibility into KPIs is unavailable.",
-    solution: "A unified data platform aggregates ERP, CRM, and operational data into a live dashboard with AI-generated narrative summaries and anomaly alerts.",
+    solution: "A unified data platform aggregates operational data into a live dashboard with AI-generated narrative summaries and anomaly detection alerts.",
     outcome: "Executives receive a 5-minute AI briefing each morning. Operational issues are detected 4× faster.",
-    tech: ["Next.js + Recharts", "dbt + PostgreSQL", "LLM narrative generation", "Vercel Edge"],
   },
 ];
 
@@ -92,7 +86,7 @@ export default function AIShowcasePage() {
             <span className="text-flame">Real Impact.</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">
-            We deploy open-source AI across all three of our pillars — not as a gimmick, but as a practical tool that solves specific, measurable problems.
+            We deploy AI across all three of our pillars — not as a gimmick, but as a practical tool that solves specific, measurable problems.
           </p>
           <Link href="/contact?subject=AI+Project+Enquiry"
             className="inline-flex items-center gap-2 rounded-xl px-8 py-3.5 text-base font-semibold text-white shadow-glow hover:shadow-glow-lg hover:scale-105 transition-all"
@@ -118,14 +112,9 @@ export default function AIShowcasePage() {
                       <div className="text-4xl mb-4">{c.icon}</div>
                       <h2 className="text-lg font-bold text-foreground mb-4">{c.title}</h2>
                       <div className="mt-auto">
-                        <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Tech Stack</p>
-                        <div className="flex flex-wrap gap-1.5">
-                          {c.tech.map((t) => (
-                            <span key={t} className="rounded-md bg-muted px-2 py-1 text-xs text-muted-foreground border border-border">
-                              {t}
-                            </span>
-                          ))}
-                        </div>
+                        <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                          Proprietary AI Solution
+                        </p>
                       </div>
                     </div>
 
@@ -161,7 +150,7 @@ export default function AIShowcasePage() {
               Ask Amara anything about our services — the chat widget is live in the bottom-left corner of every page.
             </p>
             <p className="text-white/60 text-sm">
-              Powered by Mistral 7B · Hosted privately · No data shared with third parties
+              Powered by proprietary AI · Hosted privately · Your data stays yours
             </p>
           </AnimatedSection>
         </div>
