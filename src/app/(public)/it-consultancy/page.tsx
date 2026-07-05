@@ -6,8 +6,8 @@ import { TestimonialsCarousel } from "@/components/sections/testimonials-carouse
 import type { Testimonial } from "@/types";
 
 export const metadata: Metadata = {
-  title: "IT Consultancy",
-  description: "Managed IT services, custom software development, AI integration, and enterprise automation for businesses in Zimbabwe.",
+  title: "Enterprise IT & AI Consulting",
+  description: "Enterprise IT consulting, AI integration, managed services, and custom software development for businesses in Zimbabwe.",
 };
 
 const SERVICES = [
@@ -32,13 +32,13 @@ export default function ITConsultancyPage() {
         <div className="absolute inset-0 opacity-[0.04] bg-gradient-to-br from-brand-purple to-brand-magenta" aria-hidden />
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-6 inline-flex items-center justify-center rounded-2xl bg-white shadow-card border border-border p-4 text-5xl">💡</div>
-          <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-brand-purple">IT Consultancy Division</p>
+          <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-brand-purple">Enterprise IT & Managed Services Unit</p>
           <h1 className="mb-6 text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-            AI-Powered{" "}
-            <span className="text-flame">Digital Transformation</span>
+            Enterprise IT &{" "}
+            <span className="text-flame">AI Consulting</span>
           </h1>
           <p className="mx-auto mb-10 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-            From managed infrastructure to custom AI deployments — we help Zimbabwean businesses work smarter, move faster, and stay secure.
+            From managed infrastructure to custom AI deployments — we help Zimbabwean businesses work smarter, move faster, and stay secure. Our own AI products are proof of what we can build for you.
           </p>
           <Link href="/contact?subject=Discovery+Call"
             className="inline-flex items-center gap-2 rounded-xl px-8 py-3.5 text-base font-semibold text-white shadow-glow hover:shadow-glow-lg hover:scale-105 transition-all"
@@ -98,6 +98,24 @@ export default function ITConsultancyPage() {
 
       <TestimonialsCarousel testimonials={TESTIMONIALS} title="Client Results" />
 
+      {/* Amara product CTA */}
+      <section className="py-12 bg-white border-t border-border">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <AnimatedSection className="flex flex-col sm:flex-row items-center justify-between gap-6 rounded-2xl border border-brand-purple/20 bg-primary-50 p-7">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-widest text-brand-purple mb-1">Our AI Products</p>
+              <h3 className="font-extrabold text-foreground text-lg mb-1">🤖 Amara · ⚖️ LexiZW · 🔬 ResearchMind</h3>
+              <p className="text-sm text-muted-foreground">See what we build — deployed AI products you can try right now, or we can build something similar for your business.</p>
+            </div>
+            <Link href="/products"
+              className="flex-shrink-0 inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white"
+              style={{ background: "linear-gradient(135deg,#7B2FBE,#C2449F)" }}>
+              See All Products <ArrowRight className="h-4 w-4" />
+            </Link>
+          </AnimatedSection>
+        </div>
+      </section>
+
       <section className="py-16 bg-white">
         <div className="mx-auto max-w-3xl px-4 text-center">
           <AnimatedSection>
@@ -114,3 +132,4 @@ export default function ITConsultancyPage() {
     </>
   );
 }
+

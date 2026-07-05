@@ -6,8 +6,8 @@ import { TestimonialsCarousel } from "@/components/sections/testimonials-carouse
 import type { Testimonial } from "@/types";
 
 export const metadata: Metadata = {
-  title: "Construction",
-  description: "Civil construction services — road works, drainage, sewer reticulation, and AI-enhanced site monitoring in Zimbabwe.",
+  title: "Engineering & Civil Construction",
+  description: "Engineering & Civil Construction services — road works, drainage, sewer reticulation, BOQ generation, and AI-enhanced site monitoring in Zimbabwe.",
 };
 
 const SERVICES = [
@@ -38,10 +38,10 @@ export default function ConstructionPage() {
         <div className="absolute inset-0 opacity-[0.04] bg-gradient-to-br from-amber-600 to-yellow-400" aria-hidden />
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-6 inline-flex items-center justify-center rounded-2xl bg-white shadow-card border border-border p-4 text-5xl">🏗️</div>
-          <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-amber-600">Construction Division</p>
+          <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-amber-600">Engineering & Civil Construction Unit</p>
           <h1 className="mb-6 text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-            Infrastructure That{" "}
-            <span className="text-flame">Endures</span>
+            Civil Infrastructure{" "}
+            <span className="text-flame">Built to Last</span>
           </h1>
           <p className="mx-auto mb-10 max-w-2xl text-lg text-muted-foreground leading-relaxed">
             From road construction and drainage to full sewer reticulation — Amaryllis delivers civil infrastructure on time, on spec, and with AI-powered transparency.
@@ -102,6 +102,24 @@ export default function ConstructionPage() {
 
       <TestimonialsCarousel testimonials={TESTIMONIALS} title="Client Feedback" />
 
+      {/* BOQ Generator product CTA */}
+      <section className="py-12 bg-white border-t border-border">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <AnimatedSection className="flex flex-col sm:flex-row items-center justify-between gap-6 rounded-2xl border border-amber-200 bg-amber-50 p-7">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-widest text-amber-600 mb-1">Our Construction AI Product</p>
+              <h3 className="font-extrabold text-foreground text-lg mb-1">📋 BOQ Generator — Bills of Quantities AI</h3>
+              <p className="text-sm text-muted-foreground">From engineering drawings to structured BOQ in hours. Reduces preparation time by 85%.</p>
+            </div>
+            <Link href="/products/boq-generator"
+              className="flex-shrink-0 inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white"
+              style={{ background: "linear-gradient(135deg,#D97706,#F59E0B)" }}>
+              Try BOQ Generator <ArrowRight className="h-4 w-4" />
+            </Link>
+          </AnimatedSection>
+        </div>
+      </section>
+
       <section className="py-16 bg-white">
         <div className="mx-auto max-w-3xl px-4 text-center">
           <AnimatedSection>
@@ -118,3 +136,4 @@ export default function ConstructionPage() {
     </>
   );
 }
+

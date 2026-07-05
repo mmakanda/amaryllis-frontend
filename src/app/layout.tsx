@@ -9,22 +9,29 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://amaryllissuccess.co.zw"
   ),
   title: {
-    default: "Amaryllis Success | Agriculture · Construction · IT Consultancy",
+    default: "Amaryllis Success | AI Products & Expert Services — Zimbabwe",
     template: "%s | Amaryllis Success",
   },
   description:
-    "Amaryllis Success Private Limited — Zimbabwe's premier multi-sector company delivering innovative solutions in agriculture, civil construction, and AI-powered IT consultancy.",
+    "Amaryllis Success builds AI-powered products and delivers expert services across agriculture, construction, and digital transformation in Zimbabwe.",
   authors: [{ name: "Amaryllis Success Private Limited" }],
   creator: "Amaryllis Success",
+  keywords: ["AI Zimbabwe", "LexiZW", "Mudhumeni", "BOQ Generator", "ResearchMind", "Amara", "AgriTech Zimbabwe", "construction AI", "legal AI Zimbabwe"],
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     locale: "en_ZW",
     url: "https://amaryllissuccess.co.zw",
     siteName: "Amaryllis Success",
-    title: "Amaryllis Success | Agriculture · Construction · IT Consultancy",
-    description: "Zimbabwe's premier multi-sector company — agriculture, civil construction, and AI-powered IT consultancy.",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Amaryllis Success" }],
+    title: "Amaryllis Success | AI Products & Expert Services — Zimbabwe",
+    description: "Amaryllis Success builds AI-powered products and delivers expert services across agriculture, construction, and digital transformation in Zimbabwe.",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Amaryllis Success — AI Products & Expert Services" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Amaryllis Success | AI Products & Expert Services — Zimbabwe",
+    description: "Amaryllis Success builds AI-powered products and delivers expert services across agriculture, construction, and digital transformation in Zimbabwe.",
+    images: ["/og-image.jpg"],
   },
   icons: { icon: "/favicon.ico" },
 };
@@ -46,3 +53,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
+

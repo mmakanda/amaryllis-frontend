@@ -6,7 +6,7 @@ import { TestimonialsCarousel } from "@/components/sections/testimonials-carouse
 import type { Testimonial } from "@/types";
 
 export const metadata: Metadata = {
-  title: "Agriculture",
+  title: "Smart Agriculture & AgriTech",
   description:
     "Smart farming solutions — Mudhumeni precision farming app, crop monitoring, yield prediction, and agri-infrastructure services in Zimbabwe.",
 };
@@ -39,13 +39,13 @@ export default function AgriculturePage() {
         <div className="absolute inset-0 opacity-[0.04] bg-gradient-to-br from-green-600 to-emerald-300" aria-hidden />
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-6 inline-flex items-center justify-center rounded-2xl bg-white shadow-card border border-border p-4 text-5xl">🌱</div>
-          <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-green-600">Agriculture Division</p>
+          <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-green-600">Smart Agriculture & AgriTech Unit</p>
           <h1 className="mb-6 text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-            Smart Farming for a{" "}
-            <span className="text-flame">Food-Secure Zimbabwe</span>
+            Smart Agriculture &{" "}
+            <span className="text-flame">AgriTech for Zimbabwe</span>
           </h1>
           <p className="mx-auto mb-10 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-            We combine AI, satellite imagery, IoT sensors, and local agronomic expertise to help farmers grow more with less — sustainably and profitably.
+            We combine AI-powered products, satellite imagery, IoT sensors, and local agronomic expertise to help farmers grow more with less — sustainably and profitably. Our flagship product, Mudhumeni, is already in the hands of 3,000+ farmers.
           </p>
           <Link href="/contact?subject=Agriculture+Consultation"
             className="inline-flex items-center gap-2 rounded-xl px-8 py-3.5 text-base font-semibold text-white shadow-glow hover:shadow-glow-lg hover:scale-105 transition-all"
@@ -112,6 +112,24 @@ export default function AgriculturePage() {
 
       <TestimonialsCarousel testimonials={TESTIMONIALS} title="Farmers Speak" />
 
+      {/* Mudhumeni product CTA */}
+      <section className="py-12 bg-white border-t border-border">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <AnimatedSection className="flex flex-col sm:flex-row items-center justify-between gap-6 rounded-2xl border border-green-200 bg-green-50 p-7">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-widest text-green-600 mb-1">Our AgriTech Product</p>
+              <h3 className="font-extrabold text-foreground text-lg mb-1">🌾 Mudhumeni — Crop Disease Detection AI</h3>
+              <p className="text-sm text-muted-foreground">3,000+ farmers using it across Zimbabwe. Try it or deploy it for your operation.</p>
+            </div>
+            <Link href="/products/mudhumeni"
+              className="flex-shrink-0 inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white"
+              style={{ background: "linear-gradient(135deg,#16A34A,#22C55E)" }}>
+              Learn More <ArrowRight className="h-4 w-4" />
+            </Link>
+          </AnimatedSection>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-16 bg-white">
         <div className="mx-auto max-w-3xl px-4 text-center">
@@ -129,3 +147,4 @@ export default function AgriculturePage() {
     </>
   );
 }
+

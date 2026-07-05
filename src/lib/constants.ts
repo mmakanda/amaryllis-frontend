@@ -152,12 +152,13 @@ export const NAV_ITEMS: NavItem[] = [
     label: "Services",
     href: "#",
     children: [
-      { label: "Agriculture", href: "/agriculture" },
-      { label: "Construction", href: "/construction" },
-      { label: "IT Consultancy", href: "/it-consultancy" },
+      { label: "Smart Agriculture", href: "/agriculture" },
+      { label: "Engineering & Construction", href: "/construction" },
+      { label: "Enterprise IT & AI", href: "/it-consultancy" },
       { label: "Managed Services", href: "/managed-services" },
     ],
   },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
