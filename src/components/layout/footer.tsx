@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Mail, Phone, MapPin, Clock, MessageCircle } from "lucide-react";
-import { BRAND, PILLARS, WA_MESSAGE } from "@/lib/constants";
+import { BRAND, PRODUCTS, WA_MESSAGE } from "@/lib/constants";
 import { waLink } from "@/lib/utils";
 
 export function Footer() {
@@ -30,8 +30,8 @@ export function Footer() {
               </div>
             </Link>
             <p className="text-sm text-white/70 leading-relaxed mb-6">
-              Zimbabwe's premier multi-sector company delivering innovative solutions in
-              agriculture, civil construction, and AI-powered IT consultancy.
+              Building AI-powered products and delivering expert services across agriculture,
+              construction, and digital transformation in Zimbabwe.
             </p>
             {/* WhatsApp CTA */}
             <a
@@ -45,47 +45,25 @@ export function Footer() {
             </a>
           </div>
 
-          {/* Services column */}
+          {/* Products column */}
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-widest text-white/50">
-              Our Services
+              Our Products
             </h3>
             <ul className="space-y-2.5">
-              {PILLARS.map((p) => (
+              {PRODUCTS.map((p) => (
                 <li key={p.id}>
                   <Link
                     href={p.href}
                     className="flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors group"
                   >
-                    <span className="text-base">{p.icon}</span>
+                    <span className="text-base">{p.emoji}</span>
                     <span className="group-hover:translate-x-0.5 transition-transform">
                       {p.label}
                     </span>
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link
-                  href="/managed-services"
-                  className="flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors group"
-                >
-                  <span className="text-base">📦</span>
-                  <span className="group-hover:translate-x-0.5 transition-transform">
-                    Managed Services
-                  </span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/ai-showcase"
-                  className="flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors group"
-                >
-                  <span className="text-base">🤖</span>
-                  <span className="group-hover:translate-x-0.5 transition-transform">
-                    AI Showcase
-                  </span>
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -97,9 +75,9 @@ export function Footer() {
             <ul className="space-y-2.5">
               {[
                 { label: "About Us", href: "/#about" },
-                { label: "Our Projects", href: "/#projects" },
+                { label: "Our Products", href: "/products" },
+                { label: "Services", href: "/managed-services" },
                 { label: "Testimonials", href: "/#testimonials" },
-                { label: "AI Showcase", href: "/ai-showcase" },
                 { label: "Contact Us", href: "/contact" },
               ].map((link) => (
                 <li key={link.href}>
@@ -191,3 +169,4 @@ export function Footer() {
     </footer>
   );
 }
+
