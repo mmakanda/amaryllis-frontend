@@ -1,12 +1,12 @@
 // ============================================================
-//  Amaryllis Success — Brand Constants & Pillar Metadata
+//  Amaryllis Success — Brand Constants & Product Metadata
 // ============================================================
 
 import type { PillarMeta, NavItem } from "@/types";
 
 export const BRAND = {
   name: "Amaryllis Success",
-  tagline: "Growth. Innovation. Impact.",
+  tagline: "AI Products & Expert Services — Built for Africa.",
   email: "support@amaryllissuccess.co.zw",
   phone1: "+263 786 176 284",
   phone2: "+263 787 394 581",
@@ -54,8 +54,100 @@ export const PILLARS: PillarMeta[] = [
   },
 ];
 
+export interface ProductMeta {
+  id: string;
+  label: string;
+  emoji: string;
+  href: string;
+  tag: string;
+  tagline: string;
+  description: string;
+  status: "live" | "beta" | "coming-soon";
+  color: string;
+  ctaLabel: string;
+}
+
+export const PRODUCTS: ProductMeta[] = [
+  {
+    id: "lexizw",
+    label: "LexiZW",
+    emoji: "⚖️",
+    href: "/products/lexizw",
+    tag: "Legal AI",
+    tagline: "Zimbabwe's first AI legal research assistant.",
+    description:
+      "Search Zimbabwean case law, statutes, and legal precedents in plain language — and get a researched, sourced answer in seconds.",
+    status: "live",
+    color: "#7B2FBE",
+    ctaLabel: "Try LexiZW",
+  },
+  {
+    id: "mudhumeni",
+    label: "Mudhumeni",
+    emoji: "🌾",
+    href: "/products/mudhumeni",
+    tag: "AgriTech AI",
+    tagline: "AI for the Zimbabwean farmer — in the field, on the phone.",
+    description:
+      "Point your phone at a crop and get an instant disease diagnosis. Built on 50,000+ images of Zimbabwean crops. Works on-device — no reliable internet required.",
+    status: "live",
+    color: "#16A34A",
+    ctaLabel: "Explore Mudhumeni",
+  },
+  {
+    id: "boq-generator",
+    label: "BOQ Generator",
+    emoji: "📋",
+    href: "/products/boq-generator",
+    tag: "Construction AI",
+    tagline: "From engineering drawings to BOQ — in hours, not weeks.",
+    description:
+      "Upload engineering drawings and get a structured Bill of Quantities automatically. Reduces preparation time by 85% and error rate by 78%.",
+    status: "live",
+    color: "#D97706",
+    ctaLabel: "See BOQ Generator",
+  },
+  {
+    id: "researchmind",
+    label: "ResearchMind",
+    emoji: "🔬",
+    href: "/products/researchmind",
+    tag: "Research AI",
+    tagline: "Research faster. Think deeper.",
+    description:
+      "Upload papers, paste URLs, or ask questions — ResearchMind summarises sources, surfaces key insights, and accelerates literature reviews.",
+    status: "beta",
+    color: "#0284C7",
+    ctaLabel: "Join Waitlist",
+  },
+  {
+    id: "amara",
+    label: "Amara",
+    emoji: "🤖",
+    href: "/products/amara",
+    tag: "AI Assistant",
+    tagline: "Your always-on AI business assistant.",
+    description:
+      "Amara answers questions, handles enquiries, and connects visitors to the right team — 24/7, at near-zero marginal cost. Also available as an enterprise deployment.",
+    status: "live",
+    color: "#C2449F",
+    ctaLabel: "Chat with Amara",
+  },
+];
+
 export const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
+  {
+    label: "Products",
+    href: "/products",
+    children: [
+      { label: "LexiZW", href: "/products/lexizw" },
+      { label: "Mudhumeni", href: "/products/mudhumeni" },
+      { label: "BOQ Generator", href: "/products/boq-generator" },
+      { label: "ResearchMind", href: "/products/researchmind" },
+      { label: "Amara", href: "/products/amara" },
+    ],
+  },
   {
     label: "Services",
     href: "#",
@@ -66,7 +158,6 @@ export const NAV_ITEMS: NavItem[] = [
       { label: "Managed Services", href: "/managed-services" },
     ],
   },
-  { label: "AI Showcase", href: "/ai-showcase" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -96,3 +187,4 @@ export const COMPANY_VALUES = [
     icon: "🏆",
   },
 ];
+

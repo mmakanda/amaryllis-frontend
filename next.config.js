@@ -98,6 +98,12 @@ const nextConfig = {
         destination: "/:path+",
         permanent: true,
       },
+      // ai-showcase → products (permanent 301)
+      {
+        source: "/ai-showcase",
+        destination: "/products",
+        permanent: true,
+      },
     ];
   },
 
@@ -128,3 +134,4 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+

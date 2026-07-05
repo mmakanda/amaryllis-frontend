@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_URL =
-  process.env.NEXT_PUBLIC_API_URL ?? "https://api.amaryllissuccess.co.zw/api/v1";
+  process.env.NEXT_PUBLIC_API_URL ?? "https://api.amaryllissuccess.co.zw";
 
 export const apiClient = axios.create({
   baseURL: API_URL,

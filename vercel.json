@@ -6,6 +6,7 @@
   "outputDirectory": ".next",
   "installCommand": "npm ci",
   "devCommand": "npm run dev",
+
   "regions": ["cpt1"],
 
   "headers": [

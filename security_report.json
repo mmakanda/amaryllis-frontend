@@ -1,0 +1,126 @@
+{
+  "target": "https://amaryllissuccess.co.zw",
+  "scanned_at": "2026-05-10T15:59:20.289259",
+  "findings": [
+    {
+      "severity": "INFO",
+      "category": "Recon",
+      "title": "DNS resolution",
+      "detail": "IPs: 76.76.21.21",
+      "evidence": "",
+      "fix": ""
+    },
+    {
+      "severity": "PASS",
+      "category": "Recon",
+      "title": "HTTP\u2192HTTPS redirect enforced",
+      "detail": "https://amaryllissuccess.co.zw/",
+      "evidence": "",
+      "fix": ""
+    },
+    {
+      "severity": "PASS",
+      "category": "Recon",
+      "title": "SSL cert valid",
+      "detail": "81 days remaining, issuer: Let's Encrypt",
+      "evidence": "",
+      "fix": ""
+    },
+    {
+      "severity": "LOW",
+      "category": "Recon",
+      "title": "Server header exposed",
+      "detail": "Value: Vercel",
+      "evidence": "",
+      "fix": "Remove or genericise: nginx.conf \u2192 server_tokens off;"
+    },
+    {
+      "severity": "PASS",
+      "category": "Headers",
+      "title": "HSTS (Strict-Transport-Security)",
+      "detail": "Value: max-age=31536000; includeSubDomains; preload",
+      "evidence": "",
+      "fix": ""
+    },
+    {
+      "severity": "PASS",
+      "category": "Headers",
+      "title": "X-Frame-Options (Clickjacking protection)",
+      "detail": "Value: SAMEORIGIN",
+      "evidence": "",
+      "fix": ""
+    },
+    {
+      "severity": "PASS",
+      "category": "Headers",
+      "title": "X-Content-Type-Options (MIME sniffing)",
+      "detail": "Value: nosniff",
+      "evidence": "",
+      "fix": ""
+    },
+    {
+      "severity": "PASS",
+      "category": "Headers",
+      "title": "Content-Security-Policy (XSS mitigation)",
+      "detail": "Value: default-src 'self'; script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://api.amaryllissuccess.co.zw wss://api.amaryllissuccess.co.zw; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests",
+      "evidence": "",
+      "fix": ""
+    },
+    {
+      "severity": "PASS",
+      "category": "Headers",
+      "title": "X-XSS-Protection",
+      "detail": "Value: 1; mode=block",
+      "evidence": "",
+      "fix": ""
+    },
+    {
+      "severity": "PASS",
+      "category": "Headers",
+      "title": "Referrer-Policy",
+      "detail": "Value: strict-origin-when-cross-origin",
+      "evidence": "",
+      "fix": ""
+    },
+    {
+      "severity": "PASS",
+      "category": "Headers",
+      "title": "Permissions-Policy (formerly Feature-Policy)",
+      "detail": "Value: camera=(), microphone=(), geolocation=(self), interest-cohort=()",
+      "evidence": "",
+      "fix": ""
+    },
+    {
+      "severity": "MEDIUM",
+      "category": "Headers",
+      "title": "CSP unsafe-inline",
+      "detail": "Inline scripts allowed",
+      "evidence": "unsafe-inline in CSP",
+      "fix": "Remove unsafe-inline. Use nonces instead: 'nonce-{random}'"
+    },
+    {
+      "severity": "HIGH",
+      "category": "CORS",
+      "title": "CORS wildcard origin",
+      "detail": "Any domain can read your API responses",
+      "evidence": "Access-Control-Allow-Origin: *",
+      "fix": "Whitelist specific origins: CORS_ALLOWED_ORIGINS=https://amaryllissuccess.co.zw"
+    },
+    {
+      "severity": "PASS",
+      "category": "Secrets",
+      "title": "No sensitive files exposed",
+      "detail": "Clean",
+      "evidence": "",
+      "fix": ""
+    }
+  ],
+  "summary": {
+    "CRITICAL": 0,
+    "HIGH": 1,
+    "MEDIUM": 1,
+    "LOW": 1,
+    "PASS": 10,
+    "INFO": 1
+  }
+}
