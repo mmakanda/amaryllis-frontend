@@ -133,6 +133,19 @@ export const PRODUCTS: ProductMeta[] = [
     color: "#C2449F",
     ctaLabel: "Chat with Amara",
   },
+  {
+    id: "inzwi",
+    label: "Inzwi",
+    emoji: "🗣️",
+    href: "/products/inzwi",
+    tag: "Foundational LLM",
+    tagline: "Voice for Africa's languages.",
+    description:
+      "A foundational large language model being trained on Shona, Ndebele, and other African languages — plus French, Chinese, and Spanish. A public API for any multilingual application.",
+    status: "coming-soon",
+    color: "#7C3AED",
+    ctaLabel: "Join Research Waitlist",
+  },
 ];
 
 export const NAV_ITEMS: NavItem[] = [
@@ -146,6 +159,7 @@ export const NAV_ITEMS: NavItem[] = [
       { label: "BOQ Generator", href: "/products/boq-generator" },
       { label: "ResearchMind", href: "/products/researchmind" },
       { label: "Amara", href: "/products/amara" },
+      { label: "Inzwi LLM", href: "/products/inzwi" },
     ],
   },
   {

@@ -155,6 +155,9 @@ export default function HomePage() {
                           {p.status === "beta" && (
                             <span className="rounded-full bg-info/10 px-2 py-0.5 text-[10px] font-bold text-info">BETA</span>
                           )}
+                          {p.status === "coming-soon" && (
+                            <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-bold text-amber-700">IN DEV</span>
+                          )}
                         </div>
                         <p className="text-xs text-muted-foreground truncate">{p.tag}</p>
                       </div>
@@ -204,6 +207,11 @@ export default function HomePage() {
                       {product.status === "beta" && (
                         <span className="rounded-full bg-info/10 px-2.5 py-1 text-xs font-bold text-info">
                           REVAMP IN PROGRESS
+                        </span>
+                      )}
+                      {product.status === "coming-soon" && (
+                        <span className="rounded-full bg-amber-100 px-2.5 py-1 text-xs font-bold text-amber-700">
+                          IN DEVELOPMENT
                         </span>
                       )}
                     </div>
