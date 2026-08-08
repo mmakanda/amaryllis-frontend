@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Zap } from "lucide-react";
+import { ArrowRight, Zap, Cpu, Server, Leaf, HardHat, Telescope } from "lucide-react";
 import { AnimatedSection } from "@/components/sections/animated-section";
+import { FloatingBlob } from "@/components/sections/floating-blob";
 import { TestimonialsCarousel } from "@/components/sections/testimonials-carousel";
 import { PRODUCTS, COMPANY_VALUES } from "@/lib/constants";
 import type { Testimonial } from "@/types";
@@ -56,11 +57,11 @@ const STATS = [
 ];
 
 const SERVICES = [
-  { icon: "🤖", name: "AI & Digital Transformation", desc: "Custom AI deployments, LLM integration, and digital product development." },
-  { icon: "💼", name: "Enterprise IT & Managed Services", desc: "Architecture consulting, system integration, and managed IT infrastructure." },
-  { icon: "🌱", name: "Smart Agriculture & AgriTech", desc: "Precision farming advisory, IoT deployment, and agricultural AI services." },
-  { icon: "🏗️", name: "Engineering & Civil Construction", desc: "Site management, BOQ preparation, road construction, and civil infrastructure." },
-  { icon: "🔭", name: "Research & Innovation", desc: "Emerging technology research and innovation partnerships." },
+  { icon: Cpu, name: "AI & Digital Transformation", desc: "Custom AI deployments, LLM integration, and digital product development." },
+  { icon: Server, name: "Enterprise IT & Managed Services", desc: "Architecture consulting, system integration, and managed IT infrastructure." },
+  { icon: Leaf, name: "Smart Agriculture & AgriTech", desc: "Precision farming advisory, IoT deployment, and agricultural AI services." },
+  { icon: HardHat, name: "Engineering & Civil Construction", desc: "Site management, BOQ preparation, road construction, and civil infrastructure." },
+  { icon: Telescope, name: "Research & Innovation", desc: "Emerging technology research and innovation partnerships." },
 ];
 
 export default function HomePage() {
@@ -68,10 +69,16 @@ export default function HomePage() {
     <>
       {/* ── Hero ─────────────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center overflow-hidden bg-hero-mesh pt-20">
-        <div className="pointer-events-none absolute -top-32 -right-32 h-[500px] w-[500px] rounded-full opacity-[0.07] blur-3xl"
-          style={{ background: "radial-gradient(circle, #7B2FBE, #C2449F, #F5821F)" }} />
-        <div className="pointer-events-none absolute -bottom-32 -left-32 h-[400px] w-[400px] rounded-full opacity-[0.06] blur-3xl"
-          style={{ background: "radial-gradient(circle, #F5821F, #F5B800)" }} />
+        <FloatingBlob
+          className="pointer-events-none absolute -top-32 -right-32 h-[500px] w-[500px] rounded-full opacity-[0.07] blur-3xl"
+          gradient="radial-gradient(circle, #7B2FBE, #C2449F, #F5821F)"
+          duration={12}
+        />
+        <FloatingBlob
+          className="pointer-events-none absolute -bottom-32 -left-32 h-[400px] w-[400px] rounded-full opacity-[0.06] blur-3xl"
+          gradient="radial-gradient(circle, #F5821F, #F5B800)"
+          duration={9}
+        />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -141,9 +148,14 @@ export default function HomePage() {
                     <Link
                       key={p.id}
                       href={p.href}
-                      className="flex items-center gap-4 rounded-2xl border border-border p-4 transition-all hover:border-brand-purple/30 hover:shadow-card group"
+                      className="flex items-center gap-4 rounded-2xl border border-border p-4 transition-all hover:border-brand-purple/30 hover:shadow-card hover:-translate-y-0.5 group"
                     >
-                      <span className="text-2xl">{p.emoji}</span>
+                      <span
+                        className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg"
+                        style={{ backgroundColor: `${p.color}14` }}
+                      >
+                        <p.icon className="h-[18px] w-[18px]" style={{ color: p.color }} strokeWidth={2} />
+                      </span>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
                           <p className="font-semibold text-foreground group-hover:text-brand-purple transition-colors text-sm">
@@ -191,13 +203,11 @@ export default function HomePage() {
             {PRODUCTS.map((product, i) => (
               <AnimatedSection key={product.id} delay={i * 0.08}>
                 <Link href={product.href} className="group block h-full">
-                  <div className="h-full rounded-2xl border border-border bg-gradient-to-b from-primary-50/40 to-white p-7 transition-all hover:shadow-card hover:border-brand-purple/20 flex flex-col">
+                  <div className="h-full rounded-2xl border border-border bg-gradient-to-b from-primary-50/40 to-white p-7 transition-all duration-300 hover:shadow-card hover:border-brand-purple/20 hover:-translate-y-1 flex flex-col">
                     {/* Header */}
                     <div className="flex items-start justify-between mb-4">
-                      <div
-                        className="inline-flex h-14 w-14 items-center justify-center rounded-2xl text-3xl border border-border shadow-sm bg-white"
-                      >
-                        {product.emoji}
+                      <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl text-3xl border border-border shadow-sm bg-white">
+                        <product.icon className="h-7 w-7" style={{ color: product.color }} strokeWidth={2} />
                       </div>
                       {product.status === "live" && (
                         <span className="rounded-full bg-success/10 px-2.5 py-1 text-xs font-bold text-success">
@@ -274,8 +284,10 @@ export default function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {SERVICES.map((svc, i) => (
               <AnimatedSection key={svc.name} delay={i * 0.08}>
-                <div className="flex gap-4 rounded-2xl border border-border bg-white p-6 hover:shadow-card hover:border-brand-purple/20 transition-all">
-                  <span className="text-2xl flex-shrink-0 mt-0.5">{svc.icon}</span>
+                <div className="flex gap-4 rounded-2xl border border-border bg-white p-6 transition-all duration-300 hover:shadow-card hover:border-brand-purple/20 hover:-translate-y-1">
+                  <span className="flex-shrink-0 mt-0.5 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-primary-50">
+                    <svc.icon className="h-5 w-5 text-brand-purple" strokeWidth={2} />
+                  </span>
                   <div>
                     <h3 className="font-bold text-foreground mb-1 text-sm">{svc.name}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">{svc.desc}</p>
@@ -320,8 +332,8 @@ export default function HomePage() {
             <div className="grid grid-cols-2 gap-4">
               {COMPANY_VALUES.map((v, i) => (
                 <AnimatedSection key={v.title} delay={i * 0.1}>
-                  <div className="rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition-colors">
-                    <span className="text-2xl mb-3 block">{v.icon}</span>
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-6 transition-all duration-300 hover:bg-white/10 hover:-translate-y-1">
+                    <v.icon className="h-7 w-7 mb-3 text-brand-orange" strokeWidth={2} />
                     <h3 className="font-bold text-white mb-2">{v.title}</h3>
                     <p className="text-sm text-white/60 leading-relaxed">{v.description}</p>
                   </div>
@@ -367,4 +379,3 @@ export default function HomePage() {
     </>
   );
 }
-

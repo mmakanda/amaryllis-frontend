@@ -196,7 +196,7 @@ export default function AboutPage() {
                 <Link href={p.href} className="group block h-full">
                   <div className="h-full rounded-2xl border border-border bg-gradient-to-b from-primary-50/30 to-white p-6 hover:shadow-card hover:border-brand-purple/20 transition-all flex flex-col">
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-3xl">{p.emoji}</span>
+                      <p.icon className="h-8 w-8" style={{ color: p.color }} strokeWidth={2} />
                       {p.status === "live" && (
                         <span className="rounded-full bg-success/10 px-2.5 py-1 text-xs font-bold text-success">LIVE</span>
                       )}

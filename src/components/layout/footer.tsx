@@ -57,7 +57,7 @@ export function Footer() {
                     href={p.href}
                     className="flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors group"
                   >
-                    <span className="text-base">{p.emoji}</span>
+                    <p.icon className="h-4 w-4" style={{ color: p.color }} strokeWidth={2} />
                     <span className="group-hover:translate-x-0.5 transition-transform">
                       {p.label}
                     </span>

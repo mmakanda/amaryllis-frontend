@@ -117,7 +117,7 @@ export default function ProductsPage() {
                     <div className={!isEven ? "lg:col-start-2" : ""}>
                       <div className="flex items-start gap-4 mb-6">
                         <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl text-4xl border border-border bg-white shadow-sm flex-shrink-0">
-                          {product.emoji}
+                        <product.icon className="h-8 w-8" style={{ color: product.color }} strokeWidth={2} />
                         </div>
                         <div>
                           <div className="flex items-center gap-3 mb-1">

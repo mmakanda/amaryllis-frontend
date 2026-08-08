@@ -3,6 +3,19 @@
 // ============================================================
 
 import type { PillarMeta, NavItem } from "@/types";
+import type { LucideIcon } from "lucide-react";
+import {
+  Scale,
+  Sprout,
+  ClipboardList,
+  Microscope,
+  Bot,
+  Languages,
+  Handshake,
+  Zap,
+  Target,
+  Trophy,
+} from "lucide-react";
 
 export const BRAND = {
   name: "Amaryllis Success",
@@ -57,7 +70,7 @@ export const PILLARS: PillarMeta[] = [
 export interface ProductMeta {
   id: string;
   label: string;
-  emoji: string;
+  icon: LucideIcon;
   href: string;
   tag: string;
   tagline: string;
@@ -71,7 +84,7 @@ export const PRODUCTS: ProductMeta[] = [
   {
     id: "lexizw",
     label: "LexiZW",
-    emoji: "⚖️",
+    icon: Scale,
     href: "/products/lexizw",
     tag: "Legal AI",
     tagline: "Zimbabwe's first AI legal research assistant.",
@@ -84,7 +97,7 @@ export const PRODUCTS: ProductMeta[] = [
   {
     id: "mudhumeni",
     label: "Mudhumeni",
-    emoji: "🌾",
+    icon: Sprout,
     href: "/products/mudhumeni",
     tag: "AgriTech AI",
     tagline: "AI for the Zimbabwean farmer — in the field, on the phone.",
@@ -97,7 +110,7 @@ export const PRODUCTS: ProductMeta[] = [
   {
     id: "boq-generator",
     label: "BOQ Generator",
-    emoji: "📋",
+    icon: ClipboardList,
     href: "/products/boq-generator",
     tag: "Construction AI",
     tagline: "From engineering drawings to BOQ — in hours, not weeks.",
@@ -110,7 +123,7 @@ export const PRODUCTS: ProductMeta[] = [
   {
     id: "researchmind",
     label: "ResearchMind",
-    emoji: "🔬",
+    icon: Microscope,
     href: "/products/researchmind",
     tag: "Research AI",
     tagline: "Research faster. Think deeper.",
@@ -123,7 +136,7 @@ export const PRODUCTS: ProductMeta[] = [
   {
     id: "amara",
     label: "Amara",
-    emoji: "🤖",
+    icon: Bot,
     href: "/products/amara",
     tag: "AI Assistant",
     tagline: "Your always-on AI business assistant.",
@@ -136,7 +149,7 @@ export const PRODUCTS: ProductMeta[] = [
   {
     id: "inzwi",
     label: "Inzwi",
-    emoji: "🗣️",
+    icon: Languages,
     href: "/products/inzwi",
     tag: "Foundational LLM",
     tagline: "Voice for Africa's languages.",
@@ -181,25 +194,24 @@ export const COMPANY_VALUES = [
     title: "Integrity",
     description:
       "We build trust through transparency, honesty, and consistent delivery on our promises.",
-    icon: "🤝",
+    icon: Handshake,
   },
   {
     title: "Innovation",
     description:
       "We leverage cutting-edge AI and technology to solve real-world challenges across every sector.",
-    icon: "⚡",
+    icon: Zap,
   },
   {
     title: "Impact",
     description:
       "Every project we deliver creates measurable, lasting impact for communities and businesses.",
-    icon: "🎯",
+    icon: Target,
   },
   {
     title: "Excellence",
     description:
       "We hold ourselves to the highest standards — in quality, safety, and client satisfaction.",
-    icon: "🏆",
+    icon: Trophy,
   },
 ];
-
