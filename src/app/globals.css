@@ -56,6 +56,7 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden;
   }
 }
 
@@ -75,27 +76,28 @@
     @apply bg-white/[0.04] backdrop-blur-md border border-white/[0.08] rounded-2xl;
   }
   .section-padding {
-    @apply px-4 sm:px-6 lg:px-8 xl:px-12;
+    @apply px-5 sm:px-6 lg:px-8 xl:px-12;
   }
   .container-wide {
-    @apply max-w-7xl mx-auto;
+    @apply max-w-7xl mx-auto w-full;
   }
   .heading-lg {
-    @apply text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight;
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight;
   }
   .heading-md {
-    @apply text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight;
+    @apply text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight;
   }
   .body-lg {
-    @apply text-lg leading-relaxed;
+    @apply text-base md:text-lg leading-relaxed;
   }
   .body-md {
-    @apply text-base leading-relaxed;
+    @apply text-sm md:text-base leading-relaxed;
   }
 }
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 ::selection {
@@ -116,11 +118,11 @@ html {
   position: relative;
   display: block;
   width: calc(100% + 1.3px);
-  height: 80px;
+  height: 40px;
 }
 @media (min-width: 768px) {
   .wave-divider svg {
-    height: 120px;
+    height: 80px;
   }
 }
 

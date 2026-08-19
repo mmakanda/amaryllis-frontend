@@ -6,20 +6,20 @@ import { Quote, Star } from "lucide-react";
 const testimonials = [
   {
     quote: "Amaryllis transformed how we monitor our crops. The Mudhumeni app gives us real-time insights we never had before. Yield has improved by 30% this season.",
-    author: "Tendai Moyo",
-    role: "Farm Manager · Mashonaland Estates",
+    author: "Isaac Bwanya",
+    role: "Farm Manager · Dunstan Plot",
     rating: 5,
   },
   {
     quote: "Their AutoBOQ tool cut our estimation time in half. The accuracy is remarkable and it's already paying for itself on our second project.",
-    author: "James R.",
-    role: "Project Director · Harare Construction",
+    author: "Tsitsi Utaumire",
+    role: "Architect · Freelancer",
     rating: 5,
   },
   {
     quote: "The IT infrastructure they built for us has been rock-solid. 99.9% uptime and their response time is under 15 minutes every single time.",
-    author: "Linda M.",
-    role: "CTO · FinTech Startup",
+    author: "Tafadzwa Makanda.",
+    role: "DevOps Engineer ·EdwardMikel ",
     rating: 5,
   },
 ];

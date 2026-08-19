@@ -23,7 +23,7 @@ const projects = [
 
 export default function ConstructionSection() {
   return (
-    <section id="construction" className="relative py-32 overflow-hidden">
+    <section id="construction" className="relative py-16 md:py-24 lg:py-32 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
         <Image
@@ -34,36 +34,36 @@ export default function ConstructionSection() {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-midnight-900/55" />
+        <div className="absolute inset-0 bg-midnight-900/70" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(251,146,60,0.06)_0%,transparent_60%)]" />
       </div>
 
-      <div className="relative z-10 section-padding">
-        <div className="container-wide">
+      <div className="relative z-10 px-5 sm:px-6 lg:px-8 xl:px-12">
+        <div className="max-w-7xl mx-auto w-full">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-10 md:mb-16"
           >
-            <span className="inline-block px-4 py-1.5 rounded-full text-sm font-medium bg-orange-500/10 text-orange-400 border border-orange-500/20 mb-4">
+            <span className="inline-block px-3 py-1 md:px-4 md:py-1.5 rounded-full text-xs md:text-sm font-medium bg-orange-500/10 text-orange-400 border border-orange-500/20 mb-3 md:mb-4">
               Engineering & Civil Construction
             </span>
-            <h2 className="heading-md text-white mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white mb-3 md:mb-4 break-words">
               Building{" "}
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-amber-400">
                 Zimbabwe's Future
               </span>
             </h2>
-            <p className="body-md text-midnight-300 max-w-2xl mx-auto">
+            <p className="text-sm md:text-base leading-relaxed text-midnight-300 max-w-2xl mx-auto break-words">
               From BOQ automation to full-scale civil engineering — we deliver
               infrastructure projects with precision, transparency, and modern technology.
             </p>
           </motion.div>
 
-          <div className="grid lg:grid-cols-3 gap-8 mb-16">
+          <div className="grid lg:grid-cols-3 gap-6 md:gap-8">
             {/* Services */}
-            <div className="lg:col-span-2 grid sm:grid-cols-2 gap-4">
+            <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
               {services.map((svc, i) => (
                 <motion.div
                   key={svc.title}
@@ -71,11 +71,11 @@ export default function ConstructionSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="p-5 rounded-xl glass-card hover:bg-white/[0.06] transition-colors"
+                  className="p-4 md:p-5 rounded-xl glass-card hover:bg-white/[0.06] transition-colors"
                 >
                   <svc.icon className="text-orange-400 mb-3" size={22} />
-                  <h3 className="font-semibold text-white text-sm mb-1">{svc.title}</h3>
-                  <p className="text-xs text-midnight-300 leading-relaxed">{svc.desc}</p>
+                  <h3 className="font-semibold text-white text-sm mb-1 break-words">{svc.title}</h3>
+                  <p className="text-xs text-midnight-300 leading-relaxed break-words">{svc.desc}</p>
                 </motion.div>
               ))}
             </div>
@@ -85,23 +85,23 @@ export default function ConstructionSection() {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="rounded-2xl glass-dark border border-orange-500/10 p-6"
+              className="rounded-2xl glass-dark border border-orange-500/10 p-5 md:p-6"
             >
-              <h3 className="font-bold text-white mb-6">Recent Projects</h3>
-              <div className="space-y-4">
+              <h3 className="font-bold text-white mb-4 md:mb-6">Recent Projects</h3>
+              <div className="space-y-3 md:space-y-4">
                 {projects.map((p) => (
-                  <div key={p.name} className="flex items-center justify-between py-3 border-b border-white/5 last:border-0">
-                    <div>
-                      <p className="text-sm font-medium text-white">{p.name}</p>
+                  <div key={p.name} className="flex items-center justify-between py-2.5 md:py-3 border-b border-white/5 last:border-0">
+                    <div className="min-w-0 mr-3">
+                      <p className="text-sm font-medium text-white truncate">{p.name}</p>
                       <p className="text-xs text-midnight-400">{p.status}</p>
                     </div>
-                    <span className="text-sm font-bold text-orange-400">{p.value}</span>
+                    <span className="text-sm font-bold text-orange-400 shrink-0">{p.value}</span>
                   </div>
                 ))}
               </div>
               <Link
                 href="/contact"
-                className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-orange-400 hover:text-orange-300 transition-colors"
+                className="mt-4 md:mt-6 inline-flex items-center gap-2 text-sm font-semibold text-orange-400 hover:text-orange-300 transition-colors"
               >
                 Start a Project <ArrowRight className="h-4 w-4" />
               </Link>
@@ -112,3 +112,4 @@ export default function ConstructionSection() {
     </section>
   );
 }
+
