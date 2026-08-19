@@ -43,6 +43,7 @@ export function Navbar() {
               src="/images/logo.jpeg"
               alt="Amaryllis Success logo"
               fill
+	      sizes="40px"
               className="object-contain"
               priority
             />

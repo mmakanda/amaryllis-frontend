@@ -21,6 +21,7 @@ export function Footer() {
                   src="/images/logo.jpeg"
                   alt="Amaryllis Success"
                   fill
+		  sizes="40px"
                   className="object-contain"
                 />
               </div>

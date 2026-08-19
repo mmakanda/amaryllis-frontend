@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background:    0   0%  100%;
+    --foreground:    240 20% 12%;
+    --card:          0   0%  100%;
+    --card-foreground: 240 20% 12%;
+    --popover:       0   0%  100%;
+    --popover-foreground: 240 20% 12%;
+    --primary:       271 61% 46%;
+    --primary-foreground: 0 0% 100%;
+    --secondary:     271 20% 96%;
+    --secondary-foreground: 271 61% 46%;
+    --muted:         240 5%  96%;
+    --muted-foreground: 240 5%  40%;
+    --accent:        28  91% 54%;
+    --accent-foreground: 0  0%  100%;
+    --destructive:   349 79% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border:        240 6%  90%;
+    --input:         240 6%  90%;
+    --ring:          271 61% 46%;
+    --radius:        0.625rem;
+    --chart-1: 271 61% 46%;
+    --chart-2: 28  91% 54%;
+    --chart-3: 45  91% 48%;
+    --chart-4: 315 48% 52%;
+    --chart-5: 349 79% 55%;
+  }
+
+  .dark {
+    --background:    240 20% 7%;
+    --foreground:    0   0%  97%;
+    --card:          240 20% 10%;
+    --card-foreground: 0 0% 97%;
+    --primary:       271 61% 65%;
+    --primary-foreground: 0 0% 100%;
+    --secondary:     240 15% 18%;
+    --secondary-foreground: 0 0% 90%;
+    --muted:         240 15% 18%;
+    --muted-foreground: 240 5% 60%;
+    --accent:        28  91% 60%;
+    --accent-foreground: 0 0% 100%;
+    --destructive:   349 79% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border:        240 15% 22%;
+    --input:         240 15% 22%;
+    --ring:          271 61% 65%;
+  }
+
+  * { @apply border-border; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  body { @apply bg-background text-foreground; }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  ::selection {
+    background-color: rgba(123, 47, 190, 0.2);
+    color: #1a1a2e;
+  }
+}
+
+@layer utilities {
+  .text-flame {
+    background: linear-gradient(135deg, #e8304a 0%, #f5821f 30%, #f5b800 55%, #c2449f 80%, #7b3fa0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-brand-gradient {
+    background: linear-gradient(135deg, #7b2fbe 0%, #c2449f 60%, #f5821f 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-hero-mesh {
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(123,47,190,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(245,130,31,0.10) 0%, transparent 55%),
+      radial-gradient(ellipse at 60% 80%, rgba(194,68,159,0.08) 0%, transparent 50%);
+  }
+
+  .glass {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+
+  .glass-dark {
+    background: rgba(26,26,46,0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+}
+
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: hsl(var(--muted)); }
+::-webkit-scrollbar-thumb { background: rgba(123,47,190,0.4); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(123,47,190,0.7); }
