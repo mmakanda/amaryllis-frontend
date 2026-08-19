@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Providers } from "@/components/providers";
+import AmaraChat from "@/components/AmaraChat";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -71,6 +72,7 @@ export default function RootLayout({
       <body className="font-sans antialiased bg-midnight-900 text-white min-h-screen">
         <Providers>
           {children}
+          <AmaraChat />
           <Analytics />
           <SpeedInsights />
         </Providers>
