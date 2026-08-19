@@ -45,7 +45,7 @@ const services = [
 
 export default function ServicesGrid() {
   return (
-    <section id="services" className="relative py-24 bg-midnight-950">
+    <section id="services" className="relative py-24 bg-midnight-900">
       <div className="section-padding">
         <div className="container-wide">
           <motion.div
@@ -84,6 +84,8 @@ export default function ServicesGrid() {
                         src={svc.image}
                         alt={svc.title}
                         fill
+                        quality={90}
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         className="object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-midnight-950 via-midnight-950/80 to-midnight-950/40" />

@@ -14,7 +14,7 @@ import Footer from "@/components/Footer";
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-midnight-950 text-white">
+    <main className="min-h-screen bg-midnight-900 text-white">
       <Navbar />
       <Hero />
       <ServicesGrid />

@@ -30,9 +30,11 @@ export default function ConstructionSection() {
           src="/images/construction-hero.jpg"
           alt="Construction"
           fill
+          quality={90}
+          sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-midnight-950/85" />
+        <div className="absolute inset-0 bg-midnight-900/55" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(251,146,60,0.06)_0%,transparent_60%)]" />
       </div>
 

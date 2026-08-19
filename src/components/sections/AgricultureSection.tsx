@@ -23,9 +23,11 @@ export default function AgricultureSection() {
           src="/images/agriculture-hero.jpg"
           alt="Smart Agriculture"
           fill
+          quality={90}
+          sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-midnight-950/85" />
+        <div className="absolute inset-0 bg-midnight-900/55" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(34,197,94,0.06)_0%,transparent_60%)]" />
       </div>
 

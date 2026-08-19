@@ -29,9 +29,11 @@ export default function ITSection() {
           src="/images/it-hero.jpg"
           alt="IT Infrastructure"
           fill
+          quality={90}
+          sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-midnight-950/88" />
+        <div className="absolute inset-0 bg-midnight-900/72" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.06)_0%,transparent_60%)]" />
       </div>
 

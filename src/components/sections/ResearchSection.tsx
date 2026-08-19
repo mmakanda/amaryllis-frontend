@@ -34,9 +34,11 @@ export default function ResearchSection() {
           src="/images/ai-hero.jpg"
           alt="Research"
           fill
+          quality={90}
+          sizes="100vw"
           className="object-cover opacity-30"
         />
-        <div className="absolute inset-0 bg-midnight-950/90" />
+        <div className="absolute inset-0 bg-midnight-900/75" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(236,72,153,0.06)_0%,transparent_60%)]" />
       </div>
 

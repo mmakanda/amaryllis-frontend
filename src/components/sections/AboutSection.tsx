@@ -28,7 +28,7 @@ const values = [
 
 export default function AboutSection() {
   return (
-    <section id="about" className="relative py-32 bg-midnight-950">
+    <section id="about" className="relative py-32 bg-midnight-900">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(123,47,190,0.05)_0%,transparent_60%)]" />
       <div className="relative z-10 section-padding">
         <div className="container-wide">

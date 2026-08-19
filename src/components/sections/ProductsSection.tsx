@@ -70,7 +70,7 @@ const PRODUCTS = [
 
 export default function ProductsSection() {
   return (
-    <section id="products" className="relative py-32 bg-midnight-950">
+    <section id="products" className="relative py-32 bg-midnight-900">
       <div className="section-padding">
         <div className="container-wide">
           <motion.div
@@ -109,6 +109,8 @@ export default function ProductsSection() {
                         src={product.image}
                         alt={product.label}
                         fill
+                        quality={90}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         className="object-cover transition-transform duration-700 group-hover:scale-110 opacity-40"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-midnight-950 via-midnight-950/90 to-midnight-950/70" />
