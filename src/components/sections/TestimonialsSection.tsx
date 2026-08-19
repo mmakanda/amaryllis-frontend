@@ -13,7 +13,7 @@ const testimonials = [
   {
     quote: "Their AutoBOQ tool cut our estimation time in half. The accuracy is remarkable and it's already paying for itself on our second project.",
     author: "Tsitsi Utaumire",
-    role: "Architect · Freelancer",
+    role: "Architect · Gekam Holdings",
     rating: 5,
   },
   {

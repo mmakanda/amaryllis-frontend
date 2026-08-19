@@ -11,74 +11,47 @@ interface Message {
 }
 
 const KNOWLEDGE_BASE: Record<string, string> = {
-  // Greetings
   "hi": "Hello! I'm Amara, Amaryllis Success's AI assistant. How can I help you today?",
   "hello": "Hello! I'm Amara, Amaryllis Success's AI assistant. How can I help you today?",
   "hey": "Hey there! I'm Amara. Ask me anything about Amaryllis Success, our products, or services.",
-
-  // Company
   "what is amaryllis": "Amaryllis Success is a Zimbabwean technology company that builds AI-powered products and delivers expert services across agriculture, construction, and digital transformation.",
   "who is amaryllis": "Amaryllis Success Private Limited is a Zimbabwe-based tech company founded to solve real African business problems with AI and digital tools.",
   "about amaryllis": "We operate across 4 business units: AI & Digital Transformation, Enterprise IT, Smart Agriculture, and Engineering & Construction. We're headquartered in Harare, Zimbabwe.",
   "where are you located": "We're based in Harare, Zimbabwe, and serve clients across Southern and East Africa.",
   "contact": "You can reach us at admin@amaryllissuccess.co.zw or visit our Contact page to send a message directly.",
   "email": "Our email is admin@amaryllissuccess.co.zw. You can also use the contact form on our website.",
-
-  // Products
   "mudhumeni": "Mudhumeni is our AI-powered farming assistant. It provides real-time crop monitoring, disease detection, market prices, and irrigation scheduling — built specifically for Zimbabwean farmers.",
   "what is mudhumeni": "Mudhumeni is our AI-powered farming assistant. It provides real-time crop monitoring, disease detection, market prices, and irrigation scheduling — built specifically for Zimbabwean farmers.",
-
   "lexai": "LexAI is our legal AI tool. It helps Zimbabwean legal practitioners with automated legal research, case law analysis, and document drafting.",
   "lex ai": "LexAI is our legal AI tool. It helps Zimbabwean legal practitioners with automated legal research, case law analysis, and document drafting.",
-
   "autoboq": "AutoBOQ is our smart Bill of Quantities generator. It uses AI to automate cost estimation and material scheduling for construction projects.",
   "boq": "AutoBOQ is our smart Bill of Quantities generator. It uses AI to automate cost estimation and material scheduling for construction projects.",
-
   "documind": "DocuMind is our intelligent document processing AI. It extracts, classifies, and analyzes documents with enterprise-grade accuracy and local compliance.",
-
   "amara": "That's me! I'm Amara, the AI business assistant for Amaryllis Success. I can answer questions about our company, products, and services.",
-
-  // Services
   "services": "We offer 5 core services: (1) AI & Digital Transformation, (2) Enterprise IT & Managed Services, (3) Smart Agriculture & AgriTech, (4) Engineering & Civil Construction, and (5) Research & Innovation.",
   "what services": "We offer 5 core services: AI & Digital Transformation, Enterprise IT, Smart Agriculture, Engineering & Construction, and Research & Innovation.",
-
   "agriculture": "Our Smart Agriculture services include precision farming advisory, IoT deployment, agricultural AI, and our Mudhumeni app for farmers.",
   "construction": "We provide site management, BOQ preparation, road construction, civil infrastructure, and equipment logistics services.",
   "it services": "Our Enterprise IT services include infrastructure design, cloud migration, cybersecurity, system integration, 24/7 support, and disaster recovery.",
-
-  // Pricing / Business
   "price": "Pricing varies by project scope. Please contact us at admin@amaryllissuccess.co.zw or fill out the contact form for a custom quote.",
   "pricing": "Pricing varies by project scope. Please contact us at admin@amaryllissuccess.co.zw or fill out the contact form for a custom quote.",
   "cost": "Pricing varies by project scope. Please contact us at admin@amaryllissuccess.co.zw or fill out the contact form for a custom quote.",
   "how much": "Pricing varies by project scope. Please contact us at admin@amaryllissuccess.co.zw or fill out the contact form for a custom quote.",
-
-  // Careers
   "careers": "We're always looking for talented people! Send your CV to admin@amaryllissuccess.co.zw with the subject line 'Careers'.",
   "jobs": "We're always looking for talented people! Send your CV to admin@amaryllissuccess.co.zw with the subject line 'Careers'.",
   "hiring": "We're always looking for talented people! Send your CV to admin@amaryllissuccess.co.zw with the subject line 'Careers'.",
-
-  // Fallback catcher
-  "help": "I can tell you about:
-• Amaryllis Success (who we are)
-• Our products: Mudhumeni, LexAI, AutoBOQ, DocuMind
-• Our services: AI, IT, Agriculture, Construction, Research
-• Contact info and pricing
-
-What would you like to know?",
+  "help": "I can tell you about: Amaryllis Success (who we are), our products (Mudhumeni, LexAI, AutoBOQ, DocuMind), our services (AI, IT, Agriculture, Construction, Research), contact info and pricing. What would you like to know?",
 };
 
 function findAnswer(input: string): string {
   const lower = input.toLowerCase().trim();
 
-  // Direct match
   if (KNOWLEDGE_BASE[lower]) return KNOWLEDGE_BASE[lower];
 
-  // Keyword matching
   for (const [key, value] of Object.entries(KNOWLEDGE_BASE)) {
     if (lower.includes(key)) return value;
   }
 
-  // Fuzzy matching for short inputs
   if (lower.length < 3) {
     return "I'm not sure I understood that. Try asking about our products, services, or contact info. Type 'help' for options.";
   }
@@ -119,7 +92,6 @@ export default function AmaraChat() {
     setInput("");
     setTyping(true);
 
-    // Simulate AI thinking delay
     setTimeout(() => {
       const answer = findAnswer(text);
       const botMsg: Message = { role: "assistant", content: answer, id: (Date.now() + 1).toString() };
@@ -137,7 +109,6 @@ export default function AmaraChat() {
 
   return (
     <>
-      {/* Floating toggle button */}
       <AnimatePresence>
         {!open && (
           <motion.button
@@ -156,7 +127,6 @@ export default function AmaraChat() {
         )}
       </AnimatePresence>
 
-      {/* Chat panel */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -166,7 +136,6 @@ export default function AmaraChat() {
             transition={{ duration: 0.25 }}
             className="fixed bottom-5 right-5 md:bottom-8 md:right-8 z-50 w-[92vw] max-w-[380px] h-[500px] md:h-[520px] rounded-2xl overflow-hidden flex flex-col bg-midnight-900 border border-white/10 shadow-2xl"
           >
-            {/* Header */}
             <div
               className="flex items-center justify-between px-4 py-3 shrink-0"
               style={{ background: "linear-gradient(135deg, #7B2FBE 0%, #C2449F 60%, #F5821F 100%)" }}
@@ -189,7 +158,6 @@ export default function AmaraChat() {
               </button>
             </div>
 
-            {/* Messages */}
             <div
               ref={scrollRef}
               className="flex-1 overflow-y-auto p-4 space-y-3 no-scrollbar"
@@ -213,7 +181,7 @@ export default function AmaraChat() {
                     )}
                   </div>
                   <div
-                    className={`max-w-[80%] px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed whitespace-pre-line ${
+                    className={`max-w-[80%] px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed ${
                       msg.role === "assistant"
                         ? "bg-white/5 text-white/90 rounded-tl-sm"
                         : "bg-brand-purple/20 text-white rounded-tr-sm"
@@ -236,7 +204,6 @@ export default function AmaraChat() {
               )}
             </div>
 
-            {/* Input */}
             <div className="px-3 py-3 border-t border-white/5 bg-midnight-900 shrink-0">
               <div className="flex items-center gap-2 bg-white/5 rounded-full px-4 py-2 border border-white/5 focus-within:border-brand-purple/30 transition-colors">
                 <input
