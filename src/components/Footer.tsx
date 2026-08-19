@@ -25,12 +25,12 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="bg-midnight-900 border-t border-white/5">
-      <div className="section-padding py-16">
+    <footer className="bg-midnight-900 border-white/5">
+      <div className="section-padding py-10 md:py-14 lg:py-16">
         <div className="container-wide">
-          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 md:gap-10 lg:gap-12 mb-12">
             {/* Brand */}
-            <div className="lg:col-span-2">
+            <div className="sm:col-span-2 lg:col-span-2">
               <div className="flex items-center gap-3 mb-6">
                 <Image
                   src="/images/logo.png"
@@ -40,7 +40,7 @@ export default function Footer() {
                   className="h-10 w-auto"
                 />
                 <div>
-                  <div className="text-xl font-bold text-white">Amaryllis</div>
+                  <div className="text-white md:text-xl font-bold">Amaryllis</div>
                   <div className="text-[10px] uppercase tracking-[0.2em] text-brand-orange -mt-1">
                     Success
                   </div>
@@ -51,11 +51,11 @@ export default function Footer() {
                 digital transformation — built for Zimbabwean conditions, designed for scale.
               </p>
               <div className="space-y-3">
-                <div className="flex items-center gap-3 text-sm text-midnight-300">
+                <div className="flex items-center gap-3 text-xs md:text-sm text-midnight-300">
                   <MapPin size={16} className="text-brand-orange" />
                   Harare, Zimbabwe
                 </div>
-                <div className="flex items-center gap-3 text-sm text-midnight-300">
+                <div className="flex items-center gap-3 text-xs md:text-sm text-midnight-300">
                   <Mail size={16} className="text-brand-orange" />
                   admin@amaryllissuccess.co.zw
                 </div>
@@ -65,7 +65,7 @@ export default function Footer() {
             {/* Links */}
             {Object.entries(footerLinks).map(([category, links]) => (
               <div key={category}>
-                <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+                <h4 className="text-white font-semibold uppercase tracking-wider mb-4">
                   {category}
                 </h4>
                 <ul className="space-y-3">
@@ -73,7 +73,7 @@ export default function Footer() {
                     <li key={link.name}>
                       <Link
                         href={link.href}
-                        className="text-sm text-midnight-300 hover:text-brand-orange transition-colors"
+                        className="text-xs md:text-sm text-midnight-300 hover:text-brand-orange transition-colors"
                       >
                         {link.name}
                       </Link>
@@ -84,7 +84,7 @@ export default function Footer() {
             ))}
           </div>
 
-          <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="pt-8 border-white/5 flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-midnight-400">
               © 2026 Amaryllis Success Private Limited. All rights reserved.
             </p>
