@@ -1,9 +1,12 @@
 "use client";
 
-import React, { RefObject, useCallback, useEffect, useRef } from "react";
+import React, {
+  useEffect,
+  useMemo,
+  useRef,
+} from "react";
 import {
   motion,
-  SpringOptions,
   useAnimationFrame,
   useMotionValue,
   useScroll,
@@ -11,6 +14,8 @@ import {
   useTransform,
   useVelocity,
 } from "framer-motion";
+import type { RefObject } from "react";
+import type { SpringOptions } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 
@@ -20,9 +25,16 @@ const wrap = (min: number, max: number, value: number): number => {
 };
 
 type PreserveAspectRatioAlign =
-  | "none" | "xMinYMin" | "xMidYMin" | "xMaxYMin"
-  | "xMinYMid" | "xMidYMid" | "xMaxYMid"
-  | "xMinYMax" | "xMidYMax" | "xMaxYMax";
+  | "none"
+  | "xMinYMin"
+  | "xMidYMin"
+  | "xMaxYMin"
+  | "xMinYMid"
+  | "xMidYMid"
+  | "xMaxYMid"
+  | "xMinYMax"
+  | "xMidYMax"
+  | "xMaxYMax";
 
 interface CSSVariableInterpolation {
   property: string;
@@ -34,7 +46,180 @@ type PreserveAspectRatioMeetOrSlice = "meet" | "slice";
 
 type PreserveAspectRatio =
   | PreserveAspectRatioAlign
-  | `${Exclude<PreserveAspectRatioAlign, "none">} ${PreserveAspectRatioMeetOrSlice}`;
+  | `${Exclude<
+      PreserveAspectRatioAlign,
+      "none"
+    >} ${PreserveAspectRatioMeetOrSlice}`;
+
+interface CSSVariableLayerProps {
+  property: string;
+  from: number | string;
+  to: number | string;
+  currentOffsetDistance: ReturnType<typeof useMotionValue<number>>;
+  children: React.ReactNode;
+}
+
+function CSSVariableLayer({
+  property,
+  from,
+  to,
+  currentOffsetDistance,
+  children,
+}: CSSVariableLayerProps) {
+  const value = useTransform(
+    currentOffsetDistance,
+    [0, 100],
+    [from, to]
+  );
+
+  return (
+    <motion.div
+      style={{
+        [property]: value,
+      } as React.CSSProperties}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+interface CSSVariableLayersProps {
+  cssVariableInterpolation: CSSVariableInterpolation[];
+  currentOffsetDistance: ReturnType<typeof useMotionValue<number>>;
+  children: React.ReactNode;
+}
+
+function CSSVariableLayers({
+  cssVariableInterpolation,
+  currentOffsetDistance,
+  children,
+}: CSSVariableLayersProps) {
+  if (cssVariableInterpolation.length === 0) {
+    return <>{children}</>;
+  }
+
+  return (
+    <>
+      {cssVariableInterpolation.reduceRight(
+        (content, variable) => (
+          <CSSVariableLayer
+            key={variable.property}
+            property={variable.property}
+            from={variable.from}
+            to={variable.to}
+            currentOffsetDistance={currentOffsetDistance}
+          >
+            {content}
+          </CSSVariableLayer>
+        ),
+        children
+      )}
+    </>
+  );
+}
+
+interface MarqueeItemProps {
+  child: React.ReactNode;
+  itemIndex: number;
+  itemsLength: number;
+  repeatIndex: number;
+  itemKey: string;
+  baseOffset: ReturnType<typeof useMotionValue<number>>;
+  path: string;
+  easing?: (value: number) => number;
+  draggable: boolean;
+  grabCursor: boolean;
+  enableRollingZIndex: boolean;
+  calculateZIndex: (offsetDistance: number) => number | undefined;
+  cssVariableInterpolation: CSSVariableInterpolation[];
+  itemRefs: React.MutableRefObject<Map<string, HTMLDivElement>>;
+  isHovered: React.MutableRefObject<boolean>;
+}
+
+function MarqueeItem({
+  child,
+  itemIndex,
+  itemsLength,
+  repeatIndex,
+  itemKey,
+  baseOffset,
+  path,
+  easing,
+  draggable,
+  grabCursor,
+  enableRollingZIndex,
+  calculateZIndex,
+  cssVariableInterpolation,
+  itemRefs,
+  isHovered,
+}: MarqueeItemProps) {
+  const currentOffsetDistance = useMotionValue(0);
+
+  const itemOffset = useTransform(baseOffset, (value) => {
+    const position = (itemIndex * 100) / itemsLength;
+    const wrappedValue = wrap(0, 100, value + position);
+
+    return `${
+      easing ? easing(wrappedValue / 100) * 100 : wrappedValue
+    }%`;
+  });
+
+  const zIndex = useTransform(currentOffsetDistance, (value) =>
+    calculateZIndex(value)
+  );
+
+  useEffect(() => {
+    const unsubscribe = itemOffset.on("change", (value: string) => {
+      const match = value.match(/^([\d.]+)%$/);
+
+      if (match?.[1]) {
+        currentOffsetDistance.set(parseFloat(match[1]));
+      }
+    });
+
+    return unsubscribe;
+  }, [itemOffset, currentOffsetDistance]);
+
+  return (
+    <motion.div
+      key={itemKey}
+      ref={(element) => {
+        if (element) {
+          itemRefs.current.set(itemKey, element);
+        } else {
+          itemRefs.current.delete(itemKey);
+        }
+      }}
+      className={cn(
+        "absolute left-0 top-0",
+        draggable && grabCursor && "cursor-grab"
+      )}
+      style={
+        {
+          offsetPath: `path('${path}')`,
+          offsetDistance: itemOffset,
+          zIndex: enableRollingZIndex ? zIndex : undefined,
+          willChange: "offset-distance",
+          backfaceVisibility: "hidden",
+        } as unknown as React.CSSProperties
+      }
+      aria-hidden={repeatIndex > 0}
+      onMouseEnter={() => {
+        isHovered.current = true;
+      }}
+      onMouseLeave={() => {
+        isHovered.current = false;
+      }}
+    >
+      <CSSVariableLayers
+        cssVariableInterpolation={cssVariableInterpolation}
+        currentOffsetDistance={currentOffsetDistance}
+      >
+        {child}
+      </CSSVariableLayers>
+    </motion.div>
+  );
+}
 
 interface MarqueeAlongSvgPathProps {
   children: React.ReactNode;
@@ -56,20 +241,14 @@ interface MarqueeAlongSvgPathProps {
   scrollAwareDirection?: boolean;
   scrollSpringConfig?: SpringOptions;
   scrollContainer?: RefObject<HTMLElement | null> | HTMLElement | null;
-  repeat?: number;
   draggable?: boolean;
-  dragSensitivity?: number;
-  dragVelocityDecay?: number;
-  dragAwareDirection?: boolean;
   grabCursor?: boolean;
   enableRollingZIndex?: boolean;
-  zIndexBase?: number;
-  zIndexRange?: number;
+  calculateZIndex?: (offsetDistance: number) => number | undefined;
   cssVariableInterpolation?: CSSVariableInterpolation[];
-  responsive?: boolean;
 }
 
-const MarqueeAlongSvgPath = ({
+export default function MarqueeAlongSvgPath({
   children,
   className,
   path,
@@ -78,271 +257,204 @@ const MarqueeAlongSvgPath = ({
   showPath = false,
   width = "100%",
   height = "100%",
-  viewBox = "0 0 100 100",
-  baseVelocity = 5,
+  viewBox = "0 0 1000 1000",
+  baseVelocity = 1,
   direction = "normal",
   easing,
   slowdownOnHover = false,
-  slowDownFactor = 0.3,
-  slowDownSpringConfig = { damping: 50, stiffness: 400 },
+  slowDownFactor = 0.1,
+  slowDownSpringConfig = {
+    stiffness: 200,
+    damping: 20,
+  },
   useScrollVelocity = false,
   scrollAwareDirection = false,
-  scrollSpringConfig = { damping: 50, stiffness: 400 },
-  scrollContainer,
-  repeat = 3,
+  scrollSpringConfig = {
+    stiffness: 200,
+    damping: 20,
+  },
+  scrollContainer = null,
   draggable = false,
-  dragSensitivity = 0.2,
-  dragVelocityDecay = 0.96,
-  dragAwareDirection = false,
-  grabCursor = false,
-  enableRollingZIndex = true,
-  zIndexBase = 1,
-  zIndexRange = 10,
+  grabCursor = true,
+  enableRollingZIndex = false,
+  calculateZIndex = () => undefined,
   cssVariableInterpolation = [],
-  responsive = false,
-}: MarqueeAlongSvgPathProps) => {
-  const container = useRef<HTMLDivElement>(null);
-  const marqueeContainerRef = useRef<HTMLDivElement>(null);
+}: MarqueeAlongSvgPathProps) {
   const baseOffset = useMotionValue(0);
-  const pathRef = useRef<SVGPathElement>(null);
-  const itemRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+  const velocity = useMotionValue(baseVelocity);
 
-  useEffect(() => {
-    if (!responsive) return;
-    const [, , vbWidth, vbHeight] = viewBox.split(" ").map(Number);
-    const originalWidth = vbWidth || 100;
-    const originalHeight = vbHeight || 100;
+  const scrollVelocity = useScroll({
+    container:
+      scrollContainer && typeof scrollContainer !== "string"
+        ? {
+            current: scrollContainer as HTMLElement,
+          }
+        : undefined,
+  });
 
-    const updateScale = () => {
-      const wrapper = container.current;
-      const marqueeContainer = marqueeContainerRef.current;
-      if (!wrapper || !marqueeContainer) return;
-
-      const wrapperWidth = wrapper.clientWidth;
-      const wrapperHeight = wrapper.clientHeight;
-      const scaleX = wrapperWidth / originalWidth;
-      const scaleY = wrapperHeight / originalHeight;
-      const scale = Math.min(scaleX, scaleY);
-      const scaledWidth = originalWidth * scale;
-      const scaledHeight = originalHeight * scale;
-      const offsetX = (wrapperWidth - scaledWidth) / 2;
-      const offsetY = (wrapperHeight - scaledHeight) / 2;
-
-      marqueeContainer.style.width = `${originalWidth}px`;
-      marqueeContainer.style.height = `${originalHeight}px`;
-      marqueeContainer.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
-      marqueeContainer.style.transformOrigin = "top left";
-    };
-
-    updateScale();
-    window.addEventListener("resize", updateScale);
-    return () => window.removeEventListener("resize", updateScale);
-  }, [responsive, viewBox]);
-
-  const items = React.useMemo(() => {
-    const childrenArray = React.Children.toArray(children);
-    return childrenArray.flatMap((child, childIndex) =>
-      Array.from({ length: repeat }, (_, repeatIndex) => {
-        const itemIndex = repeatIndex * childrenArray.length + childIndex;
-        const key = `${childIndex}-${repeatIndex}`;
-        return { child, childIndex, repeatIndex, itemIndex, key };
-      })
-    );
-  }, [children, repeat]);
-
-  const calculateZIndex = useCallback(
-    (offsetDistance: number) => {
-      if (!enableRollingZIndex) return undefined;
-      const normalizedDistance = offsetDistance / 100;
-      return Math.floor(zIndexBase + normalizedDistance * zIndexRange);
-    },
-    [enableRollingZIndex, zIndexBase, zIndexRange]
+  const scrollVelocityValue = useVelocity(
+    scrollVelocity.scrollYProgress
   );
 
-  const id = pathId || `marquee-path-${Math.random().toString(36).substring(7)}`;
+  const smoothScrollVelocity = useSpring(
+    scrollVelocityValue,
+    scrollSpringConfig
+  );
+  const baseVelocityValue = useMotionValue(baseVelocity);
 
-  const { scrollY } = useScroll({
-    container: (scrollContainer as RefObject<HTMLDivElement | null>) || container,
-  });
-  const scrollVelocity = useVelocity(scrollY);
-  const smoothVelocity = useSpring(scrollVelocity, scrollSpringConfig);
+  const hoverVelocity = useSpring(
+  slowdownOnHover ? velocity : baseVelocityValue,
+  slowDownSpringConfig
+  );
+  
 
   const isHovered = useRef(false);
-  const isDragging = useRef(false);
-  const dragVelocity = useRef(0);
-  const directionFactor = useRef(direction === "normal" ? 1 : -1);
 
-  const hoverFactorValue = useMotionValue(1);
-  const defaultVelocity = useMotionValue(1);
-  const smoothHoverFactor = useSpring(hoverFactorValue, slowDownSpringConfig);
+  const itemRefs = useRef(
+    new Map<string, HTMLDivElement>()
+  );
 
-  const velocityFactor = useTransform(
-    useScrollVelocity ? smoothVelocity : defaultVelocity,
-    [0, 1000],
-    [0, 5],
-    { clamp: false }
+  const directionMultiplier =
+    direction === "reverse" ? -1 : 1;
+
+  const childrenArray = useMemo(
+    () => React.Children.toArray(children),
+    [children]
+  );
+
+  const itemsLength = childrenArray.length;
+
+  const repeats = useMemo(() => {
+    if (itemsLength === 0) {
+      return 1;
+    }
+
+    return Math.max(1, Math.ceil(100 / itemsLength));
+  }, [itemsLength]);
+
+  const effectiveVelocity = useTransform(
+    [hoverVelocity, smoothScrollVelocity],
+    ([hoverValue, scrollValue]) => {
+      let result = Number(hoverValue);
+
+      if (useScrollVelocity) {
+        result += Number(scrollValue);
+      }
+
+      if (scrollAwareDirection) {
+        result *=
+          Number(scrollValue) < 0
+            ? -1
+            : Number(scrollValue) > 0
+              ? 1
+              : 1;
+      }
+
+      return result * directionMultiplier;
+    }
   );
 
   useAnimationFrame((_, delta) => {
-    if (isDragging.current && draggable) {
-      baseOffset.set(baseOffset.get() + dragVelocity.current);
-      dragVelocity.current *= 0.9;
-      if (Math.abs(dragVelocity.current) < 0.01) dragVelocity.current = 0;
-      return;
-    }
+    const currentVelocity = effectiveVelocity.get();
 
-    if (isHovered.current) {
-      hoverFactorValue.set(slowdownOnHover ? slowDownFactor : 1);
+    if (isHovered.current && slowdownOnHover) {
+      velocity.set(baseVelocity * slowDownFactor);
     } else {
-      hoverFactorValue.set(1);
+      velocity.set(baseVelocity);
     }
 
-    let moveBy =
-      directionFactor.current * baseVelocity * (delta / 1000) * smoothHoverFactor.get();
-
-    if (scrollAwareDirection && !isDragging.current) {
-      if (velocityFactor.get() < 0) directionFactor.current = -1;
-      else if (velocityFactor.get() > 0) directionFactor.current = 1;
-    }
-
-    moveBy += directionFactor.current * moveBy * velocityFactor.get();
-
-    if (draggable) {
-      moveBy += dragVelocity.current;
-      if (dragAwareDirection && Math.abs(dragVelocity.current) > 0.1) {
-        directionFactor.current = Math.sign(dragVelocity.current);
-      }
-      if (!isDragging.current && Math.abs(dragVelocity.current) > 0.01) {
-        dragVelocity.current *= dragVelocityDecay;
-      } else if (!isDragging.current) {
-        dragVelocity.current = 0;
-      }
-    }
-
-    baseOffset.set(baseOffset.get() + moveBy);
+    baseOffset.set(
+      wrap(
+        0,
+        100,
+        baseOffset.get() +
+          (currentVelocity * delta) / 1000
+      )
+    );
   });
 
-  const lastPointerPosition = useRef({ x: 0, y: 0 });
+  const renderedItems = useMemo(() => {
+    return Array.from(
+      { length: repeats },
+      (_, repeatIndex) =>
+        childrenArray.map((child, itemIndex) => {
+          const itemKey = `${repeatIndex}-${itemIndex}`;
 
-  const handlePointerDown = (e: React.PointerEvent) => {
-    if (!draggable) return;
-    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-    if (grabCursor) (e.currentTarget as HTMLElement).style.cursor = "grabbing";
-    isDragging.current = true;
-    lastPointerPosition.current = { x: e.clientX, y: e.clientY };
-    dragVelocity.current = 0;
-  };
-
-  const handlePointerMove = (e: React.PointerEvent) => {
-    if (!draggable || !isDragging.current) return;
-    const currentPosition = { x: e.clientX, y: e.clientY };
-    const deltaX = currentPosition.x - lastPointerPosition.current.x;
-    const deltaY = currentPosition.y - lastPointerPosition.current.y;
-    const delta = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-    const projectedDelta = deltaX > 0 ? delta : -delta;
-    dragVelocity.current = projectedDelta * dragSensitivity;
-    lastPointerPosition.current = currentPosition;
-  };
-
-  const handlePointerUp = (e: React.PointerEvent) => {
-    if (!draggable) return;
-    (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
-    isDragging.current = false;
-    if (grabCursor) (e.currentTarget as HTMLElement).style.cursor = "grab";
-  };
+          return (
+            <MarqueeItem
+              key={itemKey}
+              child={child}
+              itemIndex={itemIndex}
+              itemsLength={itemsLength}
+              repeatIndex={repeatIndex}
+              itemKey={itemKey}
+              baseOffset={baseOffset}
+              path={path}
+              easing={easing}
+              draggable={draggable}
+              grabCursor={grabCursor}
+              enableRollingZIndex={enableRollingZIndex}
+              calculateZIndex={calculateZIndex}
+              cssVariableInterpolation={
+                cssVariableInterpolation
+              }
+              itemRefs={itemRefs}
+              isHovered={isHovered}
+            />
+          );
+        })
+    );
+  }, [
+    repeats,
+    childrenArray,
+    itemsLength,
+    baseOffset,
+    path,
+    easing,
+    draggable,
+    grabCursor,
+    enableRollingZIndex,
+    calculateZIndex,
+    cssVariableInterpolation,
+  ]);
 
   return (
     <div
-      ref={container}
-      onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      onPointerUp={handlePointerUp}
-      onPointerCancel={handlePointerUp}
-      className={cn("relative", className)}
+      className={cn(
+        "relative overflow-hidden",
+        className
+      )}
+      style={{
+        width,
+        height,
+      }}
     >
-      <div
-        ref={marqueeContainerRef}
-        className="relative"
-        style={{ contain: "layout style" }}
+      <svg
+        width={width}
+        height={height}
+        viewBox={viewBox}
+        preserveAspectRatio={preserveAspectRatio}
+        className="absolute inset-0 h-full w-full"
+        aria-hidden="true"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width={width}
-          height={height}
-          viewBox={viewBox}
-          preserveAspectRatio={preserveAspectRatio}
-          className="w-full h-full"
-        >
+        <defs>
+          {pathId && <path id={pathId} d={path} />}
+        </defs>
+
+        {showPath && (
           <path
-            id={id}
             d={path}
-            stroke={showPath ? "currentColor" : "none"}
             fill="none"
-            ref={pathRef}
+            stroke="currentColor"
+            strokeWidth="1"
+            opacity="0.2"
           />
-        </svg>
+        )}
+      </svg>
 
-        {items.map(({ child, repeatIndex, itemIndex, key }) => {
-          const itemOffset = useTransform(baseOffset, (v) => {
-            const position = (itemIndex * 100) / items.length;
-            const wrappedValue = wrap(0, 100, v + position);
-            return `${easing ? easing(wrappedValue / 100) * 100 : wrappedValue}%`;
-          });
-
-          const currentOffsetDistance = useMotionValue(0);
-
-          const zIndex = useTransform(currentOffsetDistance, (value) =>
-            calculateZIndex(value)
-          );
-
-          useEffect(() => {
-            const unsubscribe = itemOffset.on("change", (value: string) => {
-              const match = value.match(/^([\d.]+)%$/);
-              if (match && match[1]) {
-                currentOffsetDistance.set(parseFloat(match[1]));
-              }
-            });
-            return unsubscribe;
-          }, [itemOffset, currentOffsetDistance]);
-
-          const cssVariables = Object.fromEntries(
-            (cssVariableInterpolation || []).map(({ property, from, to }) => [
-              property,
-              useTransform(currentOffsetDistance, [0, 100], [from, to]),
-            ])
-          );
-
-          return (
-            <motion.div
-              key={key}
-              ref={(el) => {
-                if (el) itemRefs.current.set(key, el);
-              }}
-              className={cn(
-                "absolute top-0 left-0",
-                draggable && grabCursor && "cursor-grab"
-              )}
-              style={
-                {
-                  offsetPath: `path('${path}')`,
-                  offsetDistance: itemOffset,
-                  zIndex: enableRollingZIndex ? zIndex : undefined,
-                  willChange: "offset-distance",
-                  backfaceVisibility: "hidden",
-                  ...cssVariables,
-                } as unknown as React.CSSProperties
-              }
-              aria-hidden={repeatIndex > 0}
-              onMouseEnter={() => (isHovered.current = true)}
-              onMouseLeave={() => (isHovered.current = false)}
-            >
-              {child}
-            </motion.div>
-          );
-        })}
+      <div className="absolute inset-0">
+        {renderedItems}
       </div>
     </div>
   );
-};
-
-export default MarqueeAlongSvgPath;
+}

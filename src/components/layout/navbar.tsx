@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { NAV_ITEMS, BRAND } from "@/lib/constants";
+import { NAV_ITEMS } from "@/lib/constants";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -16,8 +16,11 @@ export function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 24);
+
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
+
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -26,43 +29,59 @@ export function Navbar() {
     setActiveDropdown(null);
   }, [pathname]);
 
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMobileOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [mobileOpen]);
+
   return (
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         scrolled
-          ? "bg-white/90 backdrop-blur-md shadow-sm border-b border-border"
-          : "bg-transparent"
+          ? "bg-midnight-950/80 backdrop-blur-2xl border-b border-white/10 shadow-2xl"
+          : "bg-midnight-950/20 backdrop-blur-md"
       )}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="relative h-10 w-10 overflow-hidden rounded-xl transition-transform group-hover:scale-105">
+      <nav
+        className="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
+        aria-label="Main navigation"
+      >
+        <Link
+          href="/"
+          className="focus-ring group flex items-center gap-2.5 rounded-xl"
+          aria-label="Amaryllis Success home"
+        >
+          <div className="relative h-10 w-10 overflow-hidden rounded-xl border border-white/10 bg-white/10 shadow-glow transition-transform duration-300 group-hover:scale-105">
             <Image
               src="/images/logo.jpeg"
               alt="Amaryllis Success logo"
               fill
-	      sizes="40px"
+              sizes="40px"
               className="object-contain"
               priority
             />
           </div>
+
           <div className="leading-tight">
-            <p
-              className={cn(
-                "font-bold text-lg tracking-tight transition-colors",
-                scrolled ? "text-brand-purple" : "text-brand-purple"
-              )}
-            >
+            <p className="text-lg font-bold tracking-tight text-white">
               Amaryllis
             </p>
-            <p className="text-xs font-medium text-brand-charcoal -mt-0.5">Success</p>
+            <p className="-mt-0.5 text-xs font-medium text-white/50">
+              Success
+            </p>
           </div>
         </Link>
 
-        {/* Desktop nav */}
-        <ul className="hidden md:flex items-center gap-1">
+        <ul className="hidden items-center gap-1 md:flex">
           {NAV_ITEMS.map((item) => (
             <li key={item.label} className="relative">
               {item.children ? (
@@ -71,11 +90,19 @@ export function Navbar() {
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
                   <button
+                    type="button"
+                    aria-haspopup="true"
+                    aria-expanded={activeDropdown === item.label}
+                    onClick={() =>
+                      setActiveDropdown((current) =>
+                        current === item.label ? null : item.label
+                      )
+                    }
                     className={cn(
-                      "flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors",
-                      scrolled
-                        ? "text-foreground hover:text-brand-purple hover:bg-primary-50"
-                        : "text-foreground hover:text-brand-purple hover:bg-white/20"
+                      "focus-ring flex items-center gap-1 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all",
+                      activeDropdown === item.label
+                        ? "bg-white/10 text-white"
+                        : "text-white/70 hover:bg-white/[0.06] hover:text-white"
                     )}
                   >
                     {item.label}
@@ -94,22 +121,26 @@ export function Navbar() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 8, scale: 0.97 }}
                         transition={{ duration: 0.15 }}
-                        className="absolute left-0 top-full mt-1 w-52 rounded-xl border border-border bg-white shadow-lg overflow-hidden"
+                        className="absolute left-0 top-full mt-2 w-60 overflow-hidden rounded-2xl border border-white/10 bg-midnight-950/95 p-1.5 shadow-2xl backdrop-blur-2xl"
                       >
-                        {item.children.map((child) => (
-                          <Link
-                            key={child.href}
-                            href={child.href}
-                            className={cn(
-                              "block px-4 py-2.5 text-sm font-medium transition-colors hover:bg-primary-50 hover:text-brand-purple",
-                              pathname === child.href
-                                ? "text-brand-purple bg-primary-50"
-                                : "text-foreground"
-                            )}
-                          >
-                            {child.label}
-                          </Link>
-                        ))}
+                        {item.children.map((child) => {
+                          const active = pathname === child.href;
+
+                          return (
+                            <Link
+                              key={child.href}
+                              href={child.href}
+                              className={cn(
+                                "focus-ring block rounded-xl px-4 py-3 text-sm font-medium transition-colors",
+                                active
+                                  ? "bg-brand-purple/15 text-white"
+                                  : "text-white/65 hover:bg-white/[0.06] hover:text-white"
+                              )}
+                            >
+                              {child.label}
+                            </Link>
+                          );
+                        })}
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -118,12 +149,10 @@ export function Navbar() {
                 <Link
                   href={item.href}
                   className={cn(
-                    "px-4 py-2 rounded-lg text-sm font-medium transition-colors",
+                    "focus-ring block rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all",
                     pathname === item.href
-                      ? "text-brand-purple bg-primary-50"
-                      : scrolled
-                      ? "text-foreground hover:text-brand-purple hover:bg-primary-50"
-                      : "text-foreground hover:text-brand-purple hover:bg-white/20"
+                      ? "bg-white/10 text-white"
+                      : "text-white/70 hover:bg-white/[0.06] hover:text-white"
                   )}
                 >
                   {item.label}
@@ -133,52 +162,64 @@ export function Navbar() {
           ))}
         </ul>
 
-        {/* CTA */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden items-center gap-3 md:flex">
           <Link
             href="/contact"
-            className="rounded-xl bg-brand-gradient px-5 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:shadow-glow hover:scale-105 active:scale-100"
+            className="focus-ring inline-flex items-center justify-center rounded-xl px-5 py-2.5 text-sm font-semibold text-white shadow-glow transition-all hover:-translate-y-0.5 hover:shadow-glow-lg"
             style={{
-              background: "linear-gradient(135deg, #7B2FBE 0%, #C2449F 60%, #F5821F 100%)",
+              background:
+                "linear-gradient(135deg, #7B2FBE 0%, #C2449F 60%, #F5821F 100%)",
             }}
           >
             Get in Touch
           </Link>
         </div>
 
-        {/* Mobile menu button */}
         <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden rounded-lg p-2 text-foreground hover:bg-primary-50 transition-colors"
-          aria-label="Toggle menu"
+          type="button"
+          onClick={() => setMobileOpen((open) => !open)}
+          className="focus-ring rounded-xl border border-white/10 bg-white/[0.05] p-2.5 text-white transition-colors hover:bg-white/10 md:hidden"
+          aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-navigation"
         >
-          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {mobileOpen ? (
+            <X className="h-5 w-5" />
+          ) : (
+            <Menu className="h-5 w-5" />
+          )}
         </button>
       </nav>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
+            id="mobile-navigation"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden overflow-hidden border-t border-border bg-white/95 backdrop-blur-md"
+            className="overflow-hidden border-t border-white/10 bg-midnight-950/95 backdrop-blur-2xl md:hidden"
           >
-            <div className="px-4 py-4 space-y-1">
+            <div className="mx-auto max-w-7xl space-y-1 px-4 py-5 sm:px-6">
               {NAV_ITEMS.map((item) => (
                 <div key={item.label}>
                   {item.children ? (
-                    <div>
-                      <p className="px-3 py-1.5 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                    <div className="rounded-2xl border border-white/[0.06] bg-white/[0.025] p-2">
+                      <p className="px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/35">
                         {item.label}
                       </p>
+
                       {item.children.map((child) => (
                         <Link
                           key={child.href}
                           href={child.href}
-                          className="block px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:text-brand-purple hover:bg-primary-50 transition-colors"
+                          className={cn(
+                            "focus-ring block rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
+                            pathname === child.href
+                              ? "bg-brand-purple/15 text-white"
+                              : "text-white/65 hover:bg-white/[0.06] hover:text-white"
+                          )}
                         >
                           {child.label}
                         </Link>
@@ -188,10 +229,10 @@ export function Navbar() {
                     <Link
                       href={item.href}
                       className={cn(
-                        "block px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+                        "focus-ring block rounded-xl px-3 py-3 text-sm font-medium transition-colors",
                         pathname === item.href
-                          ? "text-brand-purple bg-primary-50"
-                          : "text-foreground hover:text-brand-purple hover:bg-primary-50"
+                          ? "bg-white/10 text-white"
+                          : "text-white/70 hover:bg-white/[0.06] hover:text-white"
                       )}
                     >
                       {item.label}
@@ -199,12 +240,14 @@ export function Navbar() {
                   )}
                 </div>
               ))}
-              <div className="pt-3 border-t border-border">
+
+              <div className="border-t border-white/10 pt-4">
                 <Link
                   href="/contact"
-                  className="block text-center rounded-xl px-5 py-2.5 text-sm font-semibold text-white"
+                  className="focus-ring block rounded-xl px-5 py-3 text-center text-sm font-semibold text-white shadow-glow"
                   style={{
-                    background: "linear-gradient(135deg, #7B2FBE 0%, #C2449F 60%, #F5821F 100%)",
+                    background:
+                      "linear-gradient(135deg, #7B2FBE 0%, #C2449F 60%, #F5821F 100%)",
                   }}
                 >
                   Get in Touch
@@ -217,3 +260,4 @@ export function Navbar() {
     </header>
   );
 }
+

@@ -1,4 +1,3 @@
-import Navbar from "@/components/Navbar";
 import Hero from "@/components/sections/Hero";
 import ServicesGrid from "@/components/sections/ServicesGrid";
 import AISection from "@/components/sections/AISection";
@@ -10,12 +9,10 @@ import ProductsSection from "@/components/sections/ProductsSection";
 import AboutSection from "@/components/sections/AboutSection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import CTASection from "@/components/sections/CTASection";
-import Footer from "@/components/Footer";
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-midnight-900 text-white overflow-x-hidden">
-      <Navbar />
+    <div className="min-h-screen overflow-x-hidden bg-midnight-950 text-white">
       <Hero />
       <ServicesGrid />
       <AISection />
@@ -27,8 +24,7 @@ export default function HomePage() {
       <AboutSection />
       <TestimonialsSection />
       <CTASection />
-      <Footer />
-    </main>
+    </div>
   );
 }
 

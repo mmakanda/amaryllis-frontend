@@ -1,6 +1,5 @@
 "use client";
 
-import type { Metadata } from "next";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -34,8 +33,12 @@ export default function ContactPage() {
       await apiClient.post("/contact", data);
       setSent(true);
       reset();
-    } catch (e: any) {
-      setError(e.message ?? "Something went wrong. Please try again.");
+    } catch (e: unknown) {
+      setError(
+	e instanceof Error
+	  ? e.message
+	  : "Something went wrong. Please try again."
+      );
     }
   }
 

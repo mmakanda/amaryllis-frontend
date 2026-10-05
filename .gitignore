@@ -7,3 +7,11 @@ build
 .nixpacks
 .next
 .vercel
+
+# Editor temporary files
+*.swp
+*.swo
+*~
+
+# Local redesign / backup files
+.redesign-backup/
