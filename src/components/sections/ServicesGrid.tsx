@@ -3,120 +3,110 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 const services = [
   {
+    number: "01",
     title: "AI & Digital Transformation",
-    desc: "Custom AI deployments, LLM integration, and digital product development.",
-    image: "/images/ai-hero.jpg",
+    desc: "Custom AI deployments, LLM integration and digital product development.",
+    image: "/images/it-hero.jpg",
     href: "#ai-services",
-    color: "#c084fc",
   },
   {
+    number: "02",
     title: "Enterprise IT & Managed Services",
-    desc: "Architecture consulting, system integration, and managed IT infrastructure.",
+    desc: "Architecture consulting, system integration and resilient IT infrastructure.",
     image: "/images/it-hero.jpg",
     href: "#it-services",
-    color: "#60a5fa",
   },
   {
+    number: "03",
     title: "Smart Agriculture & AgriTech",
-    desc: "Precision farming advisory, IoT deployment, and agricultural AI services.",
+    desc: "Precision farming, IoT deployment and agricultural AI services.",
     image: "/images/agriculture-hero.jpg",
     href: "#agriculture",
-    color: "#4ade80",
   },
   {
+    number: "04",
     title: "Engineering & Civil Construction",
-    desc: "Site management, BOQ preparation, road construction, and civil infrastructure.",
+    desc: "Site management, BOQ preparation, roads and civil infrastructure.",
     image: "/images/construction-hero.jpg",
     href: "#construction",
-    color: "#fb923c",
   },
   {
+    number: "05",
     title: "Research & Innovation",
-    desc: "Emerging technology research and innovation partnerships.",
-    image: "/images/ai-hero.jpg",
+    desc: "Emerging technology research and partnerships focused on African impact.",
+    image: "/images/it-hero.jpg",
     href: "#research",
-    color: "#f472b6",
   },
 ];
 
 export default function ServicesGrid() {
   return (
-    <section id="services" className="relative py-24 bg-midnight-900">
-      <div className="section-padding">
-        <div className="container-wide">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <span className="inline-block px-4 py-1.5 rounded-full text-sm font-medium bg-brand-purple/10 text-brand-purple border border-brand-purple/20 mb-4">
-              Our Services
+    <section id="services" className="relative overflow-hidden bg-[#f4f0e9] py-20 text-[#17151c] md:py-28">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8 xl:px-10">
+        <div className="grid items-end gap-8 border-b border-black/10 pb-10 md:grid-cols-[.8fr_1.2fr] md:pb-12">
+          <div>
+            <span className="text-[11px] font-bold uppercase tracking-[.22em] text-[#7B2FBE]">
+              What we do
             </span>
-            <h2 className="heading-md text-white mb-4">
-              Expert Services Across{" "}
-              <span className="text-gradient">Five Domains</span>
+            <h2 className="mt-3 max-w-xl text-4xl font-semibold tracking-[-.045em] sm:text-5xl">
+              Expertise with a practical point of view.
             </h2>
-            <p className="body-md text-midnight-300 max-w-2xl mx-auto">
-              Beyond our products, our teams deliver hands-on expertise in AI consulting,
-              civil engineering, agricultural advisory, and IT infrastructure.
-            </p>
-          </motion.div>
+          </div>
+          <p className="max-w-2xl text-sm leading-6 text-black/55 sm:text-base">
+            We bring product thinking, engineering discipline and local
+            context together — from the first strategy session to production.
+          </p>
+        </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((svc, i) => (
-              <motion.div
-                key={svc.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-              >
-                <Link href={svc.href} className="group block h-full">
-                  <div className="relative h-full rounded-2xl overflow-hidden border border-white/5 hover:border-white/10 transition-all duration-500 hover:-translate-y-1">
-                    {/* Background image */}
-                    <div className="absolute inset-0">
-                      <Image
-                        src={svc.image}
-                        alt={svc.title}
-                        fill
-                        quality={90}
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-midnight-950 via-midnight-950/80 to-midnight-950/40" />
+        <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {services.map((service, index) => (
+            <motion.div
+              key={service.title}
+              initial={{ opacity: 0, transform: "translateY(20px)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.45, delay: index * 0.06 }}
+              className={index === 0 ? "md:col-span-2 lg:col-span-2" : ""}
+            >
+              <Link href={service.href} className="group block h-full">
+                <article className="relative min-h-[330px] overflow-hidden rounded-[1.7rem] border border-black/10 bg-[#191720] shadow-[0_18px_60px_rgba(28,20,38,.12)]">
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    sizes={index === 0 ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 768px) 100vw, 33vw"}
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.035]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#09080e] via-[#09080e]/50 to-transparent" />
+                  <div className="relative flex min-h-[330px] flex-col justify-between p-6 sm:p-7">
+                    <div className="flex items-center justify-between">
+                      <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[10px] font-semibold tracking-[.18em] text-white/65 backdrop-blur-xl">
+                        {service.number}
+                      </span>
+                      <span className="grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-white/10 text-white backdrop-blur-xl transition-transform duration-200 group-hover:rotate-45">
+                        <ArrowUpRight className="h-4 w-4" />
+                      </span>
                     </div>
-
-                    {/* Content */}
-                    <div className="relative z-10 p-7 flex flex-col h-full min-h-[280px]">
-                      <div className="flex-1" />
-                      <div>
-                        <h3 className="font-bold text-white text-lg mb-2 group-hover:text-gradient transition-all">
-                          {svc.title}
-                        </h3>
-                        <p className="text-sm text-white/60 leading-relaxed mb-4">
-                          {svc.desc}
-                        </p>
-                        <span
-                          className="inline-flex items-center gap-1.5 text-sm font-semibold transition-all group-hover:gap-2.5"
-                          style={{ color: svc.color }}
-                        >
-                          Learn more
-                          <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                        </span>
-                      </div>
+                    <div className="max-w-xl">
+                      <h3 className="text-xl font-semibold tracking-tight text-white sm:text-2xl">
+                        {service.title}
+                      </h3>
+                      <p className="mt-2 max-w-lg text-sm leading-6 text-white/62">
+                        {service.desc}
+                      </p>
                     </div>
                   </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
+                </article>
+              </Link>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
   );
 }
+

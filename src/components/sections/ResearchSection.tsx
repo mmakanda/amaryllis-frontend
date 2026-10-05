@@ -31,8 +31,8 @@ export default function ResearchSection() {
       {/* Background */}
       <div className="absolute inset-0">
         <Image
-          src="/images/ai-hero.jpg"
-          alt="Research"
+          src="/images/it-hero.jpg"
+          alt="Technology research and infrastructure"
           fill
           quality={90}
           sizes="100vw"
@@ -131,4 +131,5 @@ export default function ResearchSection() {
     </section>
   );
 }
+
 
