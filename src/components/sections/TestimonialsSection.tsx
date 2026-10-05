@@ -5,71 +5,61 @@ import { Quote, Star } from "lucide-react";
 
 const testimonials = [
   {
-    quote: "Amaryllis transformed how we monitor our crops. The Mudhumeni app gives us real-time insights we never had before. Yield has improved by 30% this season.",
+    quote: "Amaryllis transformed how we monitor our crops. The Mudhumeni app gives us real-time insights we never had before.",
     author: "Isaac Bwanya",
     role: "Farm Manager · Dunstan Plot",
-    rating: 5,
   },
   {
-    quote: "Their AutoBOQ tool cut our estimation time in half. The accuracy is remarkable and it's already paying for itself on our second project.",
+    quote: "Their AutoBOQ tool cut our estimation time in half. The accuracy is remarkable and it's already paying for itself.",
     author: "Tsitsi Utaumire",
     role: "Architect · Gekam Holdings",
-    rating: 5,
   },
   {
-    quote: "The IT infrastructure they built for us has been rock-solid. 99.9% uptime and their response time is under 15 minutes every single time.",
-    author: "Tafadzwa Makanda.",
-    role: "DevOps Engineer ·EdwardMikel ",
-    rating: 5,
+    quote: "The IT infrastructure they built for us has been rock-solid. Their response time has consistently impressed our team.",
+    author: "Tafadzwa Makanda",
+    role: "DevOps Engineer · EdwardMikel",
   },
 ];
 
 export default function TestimonialsSection() {
   return (
-    <section className="relative py-32 bg-midnight-900">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(147,51,234,0.05)_0%,transparent_60%)]" />
-      <div className="relative z-10 section-padding">
-        <div className="container-wide">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <span className="inline-block px-4 py-1.5 rounded-full text-sm font-medium bg-brand-purple/10 text-brand-purple border border-brand-purple/20 mb-4">
-              Testimonials
-            </span>
-            <h2 className="heading-md text-white mb-4">
-              Trusted by <span className="text-gradient">Industry Leaders</span>
-            </h2>
-          </motion.div>
+    <section className="relative bg-[#09090f] py-20 text-white md:py-28">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8 xl:px-10">
+        <div className="max-w-2xl">
+          <span className="text-[11px] font-bold uppercase tracking-[.22em] text-[#F5B800]">
+            Client perspective
+          </span>
+          <h2 className="mt-3 text-4xl font-semibold tracking-[-.05em] sm:text-5xl">
+            What working together feels like.
+          </h2>
+        </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map((t, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="relative p-8 rounded-2xl glass-dark border border-white/5"
-              >
-                <Quote className="text-brand-purple/30 mb-4" size={32} />
-                <p className="text-midnight-200 leading-relaxed mb-6">{t.quote}</p>
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(t.rating)].map((_, j) => (
-                    <Star key={j} size={16} className="text-brand-orange fill-brand-orange" />
-                  ))}
-                </div>
-                <div>
-                  <div className="font-semibold text-white">{t.author}</div>
-                  <div className="text-sm text-midnight-400">{t.role}</div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+        <div className="mt-10 grid gap-4 md:grid-cols-3">
+          {testimonials.map((item, index) => (
+            <motion.article
+              key={item.author}
+              initial={{ opacity: 0, transform: "translateY(18px)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.4, delay: index * 0.06 }}
+              className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-6 backdrop-blur-xl"
+            >
+              <Quote className="h-7 w-7 text-[#C2449F]" />
+              <p className="mt-7 text-[15px] leading-7 text-white/68">“{item.quote}”</p>
+              <div className="mt-7 flex gap-1">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="h-3.5 w-3.5 fill-[#F5B800] text-[#F5B800]" />
+                ))}
+              </div>
+              <div className="mt-5 border-t border-white/10 pt-5">
+                <p className="text-sm font-semibold text-white">{item.author}</p>
+                <p className="mt-1 text-xs text-white/38">{item.role}</p>
+              </div>
+            </motion.article>
+          ))}
         </div>
       </div>
     </section>
   );
 }
+

@@ -1,87 +1,76 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Shield, Lightbulb, TrendingUp, Award } from "lucide-react";
+import { Shield, Lightbulb, TrendingUp, Award, ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 const values = [
-  {
-    icon: Shield,
-    title: "Integrity",
-    description: "We build trust through transparency, honesty, and consistent delivery on our promises.",
-  },
-  {
-    icon: Lightbulb,
-    title: "Innovation",
-    description: "We leverage cutting-edge AI and technology to solve real-world challenges across every sector.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Impact",
-    description: "Every project we deliver creates measurable, lasting impact for communities and businesses.",
-  },
-  {
-    icon: Award,
-    title: "Excellence",
-    description: "We hold ourselves to the highest standards — in quality, safety, and client satisfaction.",
-  },
+  { icon: Shield, title: "Integrity", description: "Transparent delivery, honest advice and clear accountability." },
+  { icon: Lightbulb, title: "Innovation", description: "Modern technology applied to problems that actually matter." },
+  { icon: TrendingUp, title: "Impact", description: "Solutions measured by outcomes, not by how impressive they sound." },
+  { icon: Award, title: "Excellence", description: "High standards across product, engineering and client experience." },
 ];
 
 export default function AboutSection() {
   return (
-    <section id="about" className="relative py-32 bg-midnight-900">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(123,47,190,0.05)_0%,transparent_60%)]" />
-      <div className="relative z-10 section-padding">
-        <div className="container-wide">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-            >
-              <span className="inline-block px-4 py-1.5 rounded-full text-sm font-medium bg-brand-purple/10 text-brand-purple border border-brand-purple/20 mb-4">
-                Why Amaryllis
-              </span>
-              <h2 className="heading-md text-white mb-6 text-balance">
-                Built for{" "}
-                <span className="text-gradient">African Reality</span>
-              </h2>
-              <p className="body-lg text-midnight-300 mb-6">
-                Amaryllis Success started with a simple observation: the tools being built for
-                African businesses were either too generic to work in local conditions, or too
-                expensive to deploy at scale.
-              </p>
-              <p className="body-md text-midnight-400 mb-8">
-                Today we operate across agriculture, construction, and digital technology —
-                with AI products deployed in the field and a team that understands Zimbabwe's
-                infrastructure, regulations, and market realities from the ground up.
-              </p>
-              <div className="p-6 rounded-2xl glass-dark border border-white/5">
-                <p className="text-white font-medium italic">
-                  "We don't import solutions. We architect them for where you are, then scale them to where you're going."
-                </p>
-              </div>
-            </motion.div>
+    <section id="about" className="relative overflow-hidden bg-[#f4f0e9] py-20 text-[#17151c] md:py-28">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8 xl:px-10">
+        <div className="grid gap-12 lg:grid-cols-[.9fr_1.1fr] lg:gap-20">
+          <motion.div
+            initial={{ opacity: 0, transform: "translateY(18px)" }}
+            whileInView={{ opacity: 1, transform: "translateY(0)" }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="text-[11px] font-bold uppercase tracking-[.22em] text-[#7B2FBE]">
+              Why Amaryllis
+            </span>
+            <h2 className="mt-4 text-4xl font-semibold leading-[.98] tracking-[-.05em] sm:text-5xl">
+              Built for African reality.
+            </h2>
+            <p className="mt-6 max-w-xl text-base leading-7 text-black/58">
+              The best technology is not the most complicated. It is the
+              technology that works in the environment where it is deployed.
+            </p>
+            <p className="mt-4 max-w-xl text-sm leading-6 text-black/48">
+              We combine local context, strong engineering and practical
+              product thinking to build systems that can start here and scale
+              beyond Zimbabwe.
+            </p>
 
-            <div className="grid sm:grid-cols-2 gap-4">
-              {values.map((value, index) => (
-                <motion.div
-                  key={value.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-brand-purple/30 transition-all"
-                >
-                  <value.icon className="text-brand-orange mb-4" size={28} />
-                  <h3 className="text-lg font-bold text-white mb-2">{value.title}</h3>
-                  <p className="text-sm text-midnight-400 leading-relaxed">{value.description}</p>
-                </motion.div>
-              ))}
+            <div className="mt-8 rounded-[1.6rem] border border-black/10 bg-white/45 p-6 shadow-[0_20px_60px_rgba(30,20,40,.06)] backdrop-blur-xl">
+              <p className="text-base font-medium leading-7 tracking-tight">
+                “We don't import solutions. We architect them for where you are,
+                then scale them to where you're going.”
+              </p>
+              <Link href="/about" className="group mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#7B2FBE]">
+                Our story
+                <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </Link>
             </div>
+          </motion.div>
+
+          <div className="grid gap-3 sm:grid-cols-2">
+            {values.map((value, index) => (
+              <motion.div
+                key={value.title}
+                initial={{ opacity: 0, transform: "translateY(18px)" }}
+                whileInView={{ opacity: 1, transform: "translateY(0)" }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.4, delay: index * 0.06 }}
+                className="rounded-[1.5rem] border border-black/10 bg-white/35 p-6 backdrop-blur-xl transition-[transform,background,border-color] duration-200 hover:-translate-y-1 hover:bg-white/55 hover:border-black/15"
+              >
+                <div className="grid h-11 w-11 place-items-center rounded-xl bg-[#7B2FBE]/10 text-[#7B2FBE]">
+                  <value.icon className="h-5 w-5" />
+                </div>
+                <h3 className="mt-7 text-lg font-semibold">{value.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-black/50">{value.description}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>
     </section>
   );
 }
+
