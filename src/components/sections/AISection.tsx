@@ -41,8 +41,8 @@ export default function AISection() {
       {/* Background image */}
       <div className="absolute inset-0">
         <Image
-          src="/images/ai-hero.jpg"
-          alt="AI technology"
+          src="/images/it-hero.jpg"
+          alt="Enterprise technology infrastructure"
           fill
           quality={90}
           sizes="100vw"
@@ -138,4 +138,5 @@ export default function AISection() {
     </section>
   );
 }
+
 
