@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { NAV_ITEMS } from "@/lib/constants";
 
@@ -16,11 +16,9 @@ export function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-
+    const onScroll = () => setScrolled(window.scrollY > 20);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -31,36 +29,31 @@ export function Navbar() {
 
   useEffect(() => {
     if (!mobileOpen) return;
-
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setMobileOpen(false);
-      }
+      if (event.key === "Escape") setMobileOpen(false);
     };
-
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [mobileOpen]);
 
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled
-          ? "bg-midnight-950/80 backdrop-blur-2xl border-b border-white/10 shadow-2xl"
-          : "bg-midnight-950/20 backdrop-blur-md"
-      )}
-    >
+    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 lg:px-6">
       <nav
-        className="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
         aria-label="Main navigation"
+        className={cn(
+          "mx-auto flex h-[68px] max-w-7xl items-center justify-between rounded-2xl border px-3 sm:px-4",
+          "transition-[background,border-color,box-shadow,backdrop-filter] duration-300",
+          scrolled
+            ? "border-white/15 bg-[#0b0a10]/80 shadow-[0_18px_60px_rgba(0,0,0,.28)] backdrop-blur-2xl"
+            : "border-white/10 bg-[#0b0a10]/45 backdrop-blur-xl"
+        )}
       >
         <Link
           href="/"
-          className="focus-ring group flex items-center gap-2.5 rounded-xl"
           aria-label="Amaryllis Success home"
+          className="group flex items-center gap-2.5 rounded-xl"
         >
-          <div className="relative h-10 w-10 overflow-hidden rounded-xl border border-white/10 bg-white/10 shadow-glow transition-transform duration-300 group-hover:scale-105">
+          <div className="relative h-10 w-10 overflow-hidden rounded-xl border border-white/10 bg-white shadow-[0_8px_25px_rgba(0,0,0,.2)] transition-transform duration-200 group-hover:scale-[1.03]">
             <Image
               src="/images/logo.jpeg"
               alt="Amaryllis Success logo"
@@ -70,18 +63,13 @@ export function Navbar() {
               priority
             />
           </div>
-
-          <div className="leading-tight">
-            <p className="text-lg font-bold tracking-tight text-white">
-              Amaryllis
-            </p>
-            <p className="-mt-0.5 text-xs font-medium text-white/50">
-              Success
-            </p>
+          <div className="hidden leading-none sm:block">
+            <p className="text-[15px] font-semibold tracking-[-.02em] text-white">Amaryllis</p>
+            <p className="mt-1 text-[9px] font-medium uppercase tracking-[.24em] text-white/40">Success</p>
           </div>
         </Link>
 
-        <ul className="hidden items-center gap-1 md:flex">
+        <ul className="hidden items-center gap-0.5 md:flex">
           {NAV_ITEMS.map((item) => (
             <li key={item.label} className="relative">
               {item.children ? (
@@ -93,51 +81,40 @@ export function Navbar() {
                     type="button"
                     aria-haspopup="true"
                     aria-expanded={activeDropdown === item.label}
-                    onClick={() =>
-                      setActiveDropdown((current) =>
-                        current === item.label ? null : item.label
-                      )
-                    }
+                    onClick={() => setActiveDropdown((current) => current === item.label ? null : item.label)}
                     className={cn(
-                      "focus-ring flex items-center gap-1 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all",
+                      "flex items-center gap-1 rounded-xl px-3.5 py-2.5 text-[13px] font-medium transition-[background,color]",
                       activeDropdown === item.label
                         ? "bg-white/10 text-white"
-                        : "text-white/70 hover:bg-white/[0.06] hover:text-white"
+                        : "text-white/62 hover:bg-white/[0.06] hover:text-white"
                     )}
                   >
                     {item.label}
-                    <ChevronDown
-                      className={cn(
-                        "h-3.5 w-3.5 transition-transform",
-                        activeDropdown === item.label && "rotate-180"
-                      )}
-                    />
+                    <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-200", activeDropdown === item.label && "rotate-180")} />
                   </button>
 
                   <AnimatePresence>
                     {activeDropdown === item.label && (
                       <motion.div
-                        initial={{ opacity: 0, y: 8, scale: 0.97 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 8, scale: 0.97 }}
-                        transition={{ duration: 0.15 }}
-                        className="absolute left-0 top-full mt-2 w-60 overflow-hidden rounded-2xl border border-white/10 bg-midnight-950/95 p-1.5 shadow-2xl backdrop-blur-2xl"
+                        initial={{ opacity: 0, transform: "translateY(6px) scale(.98)" }}
+                        animate={{ opacity: 1, transform: "translateY(0) scale(1)" }}
+                        exit={{ opacity: 0, transform: "translateY(6px) scale(.98)" }}
+                        transition={{ duration: 0.16 }}
+                        className="absolute left-0 top-full mt-2 w-64 overflow-hidden rounded-2xl border border-white/10 bg-[#100e16]/95 p-1.5 shadow-[0_25px_80px_rgba(0,0,0,.42)] backdrop-blur-2xl"
                       >
                         {item.children.map((child) => {
                           const active = pathname === child.href;
-
                           return (
                             <Link
                               key={child.href}
                               href={child.href}
                               className={cn(
-                                "focus-ring block rounded-xl px-4 py-3 text-sm font-medium transition-colors",
-                                active
-                                  ? "bg-brand-purple/15 text-white"
-                                  : "text-white/65 hover:bg-white/[0.06] hover:text-white"
+                                "flex items-center justify-between rounded-xl px-3.5 py-3 text-sm font-medium transition-colors",
+                                active ? "bg-white/10 text-white" : "text-white/60 hover:bg-white/[0.06] hover:text-white"
                               )}
                             >
                               {child.label}
+                              <ArrowUpRight className="h-3.5 w-3.5 text-white/25" />
                             </Link>
                           );
                         })}
@@ -149,10 +126,10 @@ export function Navbar() {
                 <Link
                   href={item.href}
                   className={cn(
-                    "focus-ring block rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all",
+                    "block rounded-xl px-3.5 py-2.5 text-[13px] font-medium transition-[background,color]",
                     pathname === item.href
                       ? "bg-white/10 text-white"
-                      : "text-white/70 hover:bg-white/[0.06] hover:text-white"
+                      : "text-white/62 hover:bg-white/[0.06] hover:text-white"
                   )}
                 >
                   {item.label}
@@ -162,32 +139,25 @@ export function Navbar() {
           ))}
         </ul>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden md:flex">
           <Link
             href="/contact"
-            className="focus-ring inline-flex items-center justify-center rounded-xl px-5 py-2.5 text-sm font-semibold text-white shadow-glow transition-all hover:-translate-y-0.5 hover:shadow-glow-lg"
-            style={{
-              background:
-                "linear-gradient(135deg, #7B2FBE 0%, #C2449F 60%, #F5821F 100%)",
-            }}
+            className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-[13px] font-semibold text-[#15131c] transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_35px_rgba(255,255,255,.16)]"
           >
-            Get in Touch
+            Get in touch
+            <ArrowUpRight className="h-3.5 w-3.5" />
           </Link>
         </div>
 
         <button
           type="button"
           onClick={() => setMobileOpen((open) => !open)}
-          className="focus-ring rounded-xl border border-white/10 bg-white/[0.05] p-2.5 text-white transition-colors hover:bg-white/10 md:hidden"
+          className="grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-white/[0.05] text-white transition-colors hover:bg-white/10 md:hidden"
           aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
           aria-expanded={mobileOpen}
           aria-controls="mobile-navigation"
         >
-          {mobileOpen ? (
-            <X className="h-5 w-5" />
-          ) : (
-            <Menu className="h-5 w-5" />
-          )}
+          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </nav>
 
@@ -195,65 +165,50 @@ export function Navbar() {
         {mobileOpen && (
           <motion.div
             id="mobile-navigation"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden border-t border-white/10 bg-midnight-950/95 backdrop-blur-2xl md:hidden"
+            initial={{ opacity: 0, transform: "translateY(-8px)" }}
+            animate={{ opacity: 1, transform: "translateY(0)" }}
+            exit={{ opacity: 0, transform: "translateY(-8px)" }}
+            transition={{ duration: 0.18 }}
+            className="mx-auto mt-2 max-w-7xl overflow-hidden rounded-2xl border border-white/10 bg-[#100e16]/95 p-2 shadow-[0_25px_80px_rgba(0,0,0,.4)] backdrop-blur-2xl md:hidden"
           >
-            <div className="mx-auto max-w-7xl space-y-1 px-4 py-5 sm:px-6">
-              {NAV_ITEMS.map((item) => (
-                <div key={item.label}>
-                  {item.children ? (
-                    <div className="rounded-2xl border border-white/[0.06] bg-white/[0.025] p-2">
-                      <p className="px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/35">
-                        {item.label}
-                      </p>
-
-                      {item.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          className={cn(
-                            "focus-ring block rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
-                            pathname === child.href
-                              ? "bg-brand-purple/15 text-white"
-                              : "text-white/65 hover:bg-white/[0.06] hover:text-white"
-                          )}
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
-                    </div>
-                  ) : (
-                    <Link
-                      href={item.href}
-                      className={cn(
-                        "focus-ring block rounded-xl px-3 py-3 text-sm font-medium transition-colors",
-                        pathname === item.href
-                          ? "bg-white/10 text-white"
-                          : "text-white/70 hover:bg-white/[0.06] hover:text-white"
-                      )}
-                    >
-                      {item.label}
-                    </Link>
-                  )}
-                </div>
-              ))}
-
-              <div className="border-t border-white/10 pt-4">
-                <Link
-                  href="/contact"
-                  className="focus-ring block rounded-xl px-5 py-3 text-center text-sm font-semibold text-white shadow-glow"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, #7B2FBE 0%, #C2449F 60%, #F5821F 100%)",
-                  }}
-                >
-                  Get in Touch
-                </Link>
+            {NAV_ITEMS.map((item) => (
+              <div key={item.label}>
+                {item.children ? (
+                  <div className="rounded-xl border border-white/[0.06] bg-white/[0.025] p-1">
+                    <p className="px-3 py-2 text-[10px] font-semibold uppercase tracking-[.2em] text-white/30">{item.label}</p>
+                    {item.children.map((child) => (
+                      <Link
+                        key={child.href}
+                        href={child.href}
+                        className={cn(
+                          "block rounded-lg px-3 py-2.5 text-sm font-medium",
+                          pathname === child.href ? "bg-white/10 text-white" : "text-white/60 hover:bg-white/[0.05] hover:text-white"
+                        )}
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                ) : (
+                  <Link
+                    href={item.href}
+                    className={cn(
+                      "block rounded-xl px-3 py-3 text-sm font-medium",
+                      pathname === item.href ? "bg-white/10 text-white" : "text-white/65 hover:bg-white/[0.05] hover:text-white"
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                )}
               </div>
-            </div>
+            ))}
+            <Link
+              href="/contact"
+              className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-semibold text-[#15131c]"
+            >
+              Get in touch
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>
