@@ -15,3 +15,10 @@ build
 
 # Local redesign / backup files
 .redesign-backup/
+
+# Local environment backups
+.env*.backup
+.env.local.production-backup
+
+# TypeScript build cache
+*.tsbuildinfo
