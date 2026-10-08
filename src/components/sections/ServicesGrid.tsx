@@ -7,38 +7,38 @@ import { ArrowUpRight } from "lucide-react";
 
 const services = [
   {
-    number: "01",
+    
     title: "AI & Digital Transformation",
     desc: "Custom AI deployments, LLM integration and digital product development.",
-    image: "/images/it-hero.jpg",
+    image: "/images/aidi.jpeg",
     href: "#ai-services",
   },
   {
-    number: "02",
+    
     title: "Enterprise IT & Managed Services",
     desc: "Architecture consulting, system integration and resilient IT infrastructure.",
     image: "/images/it-hero.jpg",
     href: "#it-services",
   },
   {
-    number: "03",
+    
     title: "Smart Agriculture & AgriTech",
     desc: "Precision farming, IoT deployment and agricultural AI services.",
     image: "/images/agriculture-hero.jpg",
     href: "#agriculture",
   },
   {
-    number: "04",
+    
     title: "Engineering & Civil Construction",
     desc: "Site management, BOQ preparation, roads and civil infrastructure.",
     image: "/images/construction-hero.jpg",
     href: "#construction",
   },
   {
-    number: "05",
+    
     title: "Research & Innovation",
     desc: "Emerging technology research and partnerships focused on African impact.",
-    image: "/images/it-hero.jpg",
+    image: "/images/researchmind.jpeg",
     href: "#research",
   },
 ];
