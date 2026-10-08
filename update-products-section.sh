@@ -1,3 +1,11 @@
+#!/usr/bin/env bash
+# Run from the amaryllis-frontend root:  bash update-products-section.sh
+set -euo pipefail
+F=src/components/sections/ProductsSection.tsx
+[ -f "$F" ] || { echo "Run from the amaryllis-frontend root." >&2; exit 1; }
+cp "$F" "$F.bak"
+echo "Backed up original to $F.bak"
+cat > "$F" << 'AMARYLLIS_EOF'
 "use client";
 
 import { motion } from "framer-motion";
@@ -207,3 +215,6 @@ export default function ProductsSection() {
     </section>
   );
 }
+AMARYLLIS_EOF
+rm -rf .next
+echo "Done. Now run: npm run build"
