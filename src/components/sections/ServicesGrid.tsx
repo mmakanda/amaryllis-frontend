@@ -7,35 +7,30 @@ import { ArrowUpRight } from "lucide-react";
 
 const services = [
   {
-    
     title: "AI & Digital Transformation",
     desc: "Custom AI deployments, LLM integration and digital product development.",
     image: "/images/aidi.jpeg",
     href: "#ai-services",
   },
   {
-    
     title: "Enterprise IT & Managed Services",
     desc: "Architecture consulting, system integration and resilient IT infrastructure.",
     image: "/images/it-hero.jpg",
     href: "#it-services",
   },
   {
-    
     title: "Smart Agriculture & AgriTech",
     desc: "Precision farming, IoT deployment and agricultural AI services.",
     image: "/images/agriculture-hero.jpg",
     href: "#agriculture",
   },
   {
-    
     title: "Engineering & Civil Construction",
     desc: "Site management, BOQ preparation, roads and civil infrastructure.",
     image: "/images/construction-hero.jpg",
     href: "#construction",
   },
   {
-    
     title: "Research & Innovation",
     desc: "Emerging technology research and partnerships focused on African impact.",
     image: "/images/researchmind.jpeg",
@@ -58,7 +53,7 @@ export default function ServicesGrid() {
           </div>
           <p className="max-w-2xl text-sm leading-6 text-black/55 sm:text-base">
             We bring product thinking, engineering discipline and local
-            context together — from the first strategy session to production.
+            context together - from the first strategy session to production.
           </p>
         </div>
 
@@ -83,10 +78,7 @@ export default function ServicesGrid() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#09080e] via-[#09080e]/50 to-transparent" />
                   <div className="relative flex min-h-[330px] flex-col justify-between p-6 sm:p-7">
-                    <div className="flex items-center justify-between">
-                      <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[10px] font-semibold tracking-[.18em] text-white/65 backdrop-blur-xl">
-                        {service.number}
-                      </span>
+                    <div className="flex items-center justify-end">
                       <span className="grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-white/10 text-white backdrop-blur-xl transition-transform duration-200 group-hover:rotate-45">
                         <ArrowUpRight className="h-4 w-4" />
                       </span>
@@ -109,4 +101,3 @@ export default function ServicesGrid() {
     </section>
   );
 }
-
