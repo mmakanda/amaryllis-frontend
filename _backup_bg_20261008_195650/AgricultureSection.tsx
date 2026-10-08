@@ -52,44 +52,41 @@ const credentials = [
   "Mudhumeni: live",
 ];
 
-// Readability comes from frosted panels, not from dimming the photo.
-const PANEL = "border border-white/15 bg-black/45 backdrop-blur-md";
-
 export default function AgricultureSection() {
   return (
     <section id="agriculture" className="relative overflow-hidden py-16 md:py-24 lg:py-32">
-      {/* Photo shown as-is: no overlay, no tint */}
       <div className="absolute inset-0">
         <Image
           src="/images/agriculture-hero.jpg"
           alt="Smart Agriculture"
           fill
-          quality={95}
+          quality={90}
           sizes="100vw"
           className="object-cover"
         />
+        <div className="absolute inset-0 bg-midnight-900/70" />
       </div>
 
       <div className="relative z-10 px-5 sm:px-6 lg:px-8 xl:px-12">
         <div className="mx-auto w-full max-w-7xl">
-          <div className="grid items-start gap-8 md:gap-12 lg:grid-cols-2 lg:gap-16">
+          <div className="grid items-center gap-8 md:gap-12 lg:grid-cols-2 lg:gap-16">
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
-              className={`min-w-0 rounded-3xl p-6 md:p-8 ${PANEL}`}
+              className="min-w-0"
             >
-              <span className="mb-3 inline-block rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium text-white md:mb-4 md:px-4 md:py-1.5 md:text-sm">
+              <span className="mb-3 inline-block rounded-full border border-green-500/20 bg-green-500/10 px-3 py-1 text-xs font-medium text-green-400 md:mb-4 md:px-4 md:py-1.5 md:text-sm">
                 Smart Agriculture & AgriTech
               </span>
               <h2 className="mb-4 break-words text-2xl font-bold tracking-tight text-white sm:text-3xl md:mb-6 md:text-4xl">
                 Built by people who{" "}
-                <span className="bg-gradient-to-r from-green-300 to-emerald-300 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
                   actually farm
                 </span>
               </h2>
-              <p className="mb-5 break-words text-sm leading-relaxed text-white/80 md:text-base">
+              <p className="mb-5 break-words text-sm leading-relaxed text-midnight-300 md:text-base">
                 We run our own farming operation, so what we build gets tested
                 where it matters. From AI crop advisory to livestock tools, our
                 technology is designed for Zimbabwean conditions.
@@ -99,33 +96,33 @@ export default function AgricultureSection() {
                 {credentials.map((c) => (
                   <span
                     key={c}
-                    className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-[11px] font-medium text-white md:text-xs"
+                    className="rounded-full border border-green-500/20 bg-green-500/10 px-3 py-1.5 text-[11px] font-medium text-green-300 md:text-xs"
                   >
                     {c}
                   </span>
                 ))}
               </div>
 
-              <div className="rounded-2xl border border-white/15 bg-black/35 p-4 md:p-6">
+              <div className="glass-dark mb-6 rounded-2xl border border-green-500/10 p-4 md:mb-8 md:p-6">
                 <div className="mb-3 flex items-center gap-3 md:mb-4 md:gap-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10 md:h-12 md:w-12">
-                    <Smartphone className="text-green-300" size={20} />
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-green-500/10 md:h-12 md:w-12">
+                    <Smartphone className="text-green-400" size={20} />
                   </div>
                   <div className="min-w-0">
                     <h3 className="text-sm font-bold text-white md:text-base">Mudhumeni</h3>
-                    <p className="text-[11px] text-white/65 md:text-xs">
+                    <p className="text-[11px] text-midnight-300 md:text-xs">
                       AI for the Zimbabwean farmer
                     </p>
                   </div>
                 </div>
-                <p className="mb-3 break-words text-xs text-white/80 md:mb-4 md:text-sm">
+                <p className="mb-3 break-words text-xs text-midnight-300 md:mb-4 md:text-sm">
                   Point your phone at a crop and get an instant disease diagnosis.
                   Built on 50,000+ images of Zimbabwean crops, and works on-device
                   without reliable internet.
                 </p>
                 <Link
                   href="/products/mudhumeni"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-green-300 transition-colors hover:text-green-200"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-green-400 transition-colors hover:text-green-300"
                 >
                   Explore Mudhumeni <ArrowRight className="h-4 w-4" />
                 </Link>
@@ -140,11 +137,11 @@ export default function AgricultureSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className={`rounded-xl p-4 transition-colors hover:bg-black/60 md:p-5 ${PANEL}`}
+                  className="glass-card rounded-xl p-4 transition-colors hover:bg-white/[0.06] md:p-5"
                 >
-                  <f.icon className="mb-3 text-green-300" size={22} />
+                  <f.icon className="mb-3 text-green-400" size={22} />
                   <h3 className="mb-1 break-words text-sm font-semibold text-white">{f.title}</h3>
-                  <p className="break-words text-xs leading-relaxed text-white/75">{f.desc}</p>
+                  <p className="break-words text-xs leading-relaxed text-midnight-300">{f.desc}</p>
                 </motion.div>
               ))}
             </div>
@@ -154,11 +151,11 @@ export default function AgricultureSection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className={`mt-8 flex flex-col gap-4 rounded-2xl p-5 sm:flex-row sm:items-center sm:justify-between md:mt-10 md:p-6 ${PANEL}`}
+            className="mt-8 flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/[0.045] p-5 backdrop-blur-xl sm:flex-row sm:items-center sm:justify-between md:mt-10 md:p-6"
           >
             <div>
               <p className="text-sm font-semibold text-white">Running a farm or livestock operation?</p>
-              <p className="mt-1 text-xs text-white/70 md:text-sm">
+              <p className="mt-1 text-xs text-midnight-300 md:text-sm">
                 Tell us what slows you down and we will tell you what is worth building.
               </p>
             </div>

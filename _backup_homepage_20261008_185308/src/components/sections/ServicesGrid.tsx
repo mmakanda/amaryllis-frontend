@@ -7,22 +7,34 @@ import { ArrowUpRight } from "lucide-react";
 
 const services = [
   {
-    title: "Enterprise Architecture & AI",
-    desc: "Solution architecture, cloud migration, AI development and system integration.",
+    title: "AI & Digital Transformation",
+    desc: "Custom AI deployments, LLM integration and digital product development.",
     image: "/images/aidi.jpeg",
-    href: "#enterprise",
+    href: "#ai-services",
+  },
+  {
+    title: "Enterprise IT & Managed Services",
+    desc: "Architecture consulting, system integration and resilient IT infrastructure.",
+    image: "/images/it-hero.jpg",
+    href: "#it-services",
   },
   {
     title: "Smart Agriculture & AgriTech",
-    desc: "Built by people who farm. Crop advisory, livestock tools and farm technology.",
+    desc: "Precision farming, IoT deployment and agricultural AI services.",
     image: "/images/agriculture-hero.jpg",
     href: "#agriculture",
   },
   {
-    title: "Construction & Engineering",
-    desc: "Road and housing delivery with our construction partner, plus AI tools for estimating and planning.",
+    title: "Engineering & Civil Construction",
+    desc: "Site management, BOQ preparation, roads and civil infrastructure.",
     image: "/images/construction-hero.jpg",
     href: "#construction",
+  },
+  {
+    title: "Research & Innovation",
+    desc: "Emerging technology research and partnerships focused on African impact.",
+    image: "/images/researchmind.jpeg",
+    href: "#research",
   },
 ];
 
@@ -40,12 +52,12 @@ export default function ServicesGrid() {
             </h2>
           </div>
           <p className="max-w-2xl text-sm leading-6 text-black/55 sm:text-base">
-            Enterprise technology, agriculture and construction, delivered by
-            a team with hands-on field experience in each.
+            We bring product thinking, engineering discipline and local
+            context together - from the first strategy session to production.
           </p>
         </div>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
+        <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
@@ -53,18 +65,19 @@ export default function ServicesGrid() {
               whileInView={{ opacity: 1, transform: "translateY(0)" }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.45, delay: index * 0.06 }}
+              className={index === 0 ? "md:col-span-2 lg:col-span-2" : ""}
             >
               <Link href={service.href} className="group block h-full">
-                <article className="relative min-h-[360px] overflow-hidden rounded-[1.7rem] border border-black/10 bg-[#191720] shadow-[0_18px_60px_rgba(28,20,38,.12)]">
+                <article className="relative min-h-[330px] overflow-hidden rounded-[1.7rem] border border-black/10 bg-[#191720] shadow-[0_18px_60px_rgba(28,20,38,.12)]">
                   <Image
                     src={service.image}
                     alt={service.title}
                     fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes={index === 0 ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 768px) 100vw, 33vw"}
                     className="object-cover transition-transform duration-700 group-hover:scale-[1.035]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#09080e] via-[#09080e]/50 to-transparent" />
-                  <div className="relative flex min-h-[360px] flex-col justify-between p-6 sm:p-7">
+                  <div className="relative flex min-h-[330px] flex-col justify-between p-6 sm:p-7">
                     <div className="flex items-center justify-end">
                       <span className="grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-white/10 text-white backdrop-blur-xl transition-transform duration-200 group-hover:rotate-45">
                         <ArrowUpRight className="h-4 w-4" />

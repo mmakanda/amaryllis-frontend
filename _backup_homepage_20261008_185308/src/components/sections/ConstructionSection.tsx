@@ -1,0 +1,165 @@
+"use client";
+
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import {
+  ArrowRight,
+  BrainCircuit,
+  Calculator,
+  ClipboardList,
+  FileText,
+} from "lucide-react";
+
+const solutions = [
+  {
+    icon: BrainCircuit,
+    title: "AI-Powered BOQ Generation",
+    desc: "Generate structured bills of quantities faster with AutoBOQ from project requirements and technical documentation.",
+  },
+  {
+    icon: Calculator,
+    title: "Cost Estimation & Analysis",
+    desc: "Support project budgeting with structured quantities, cost analysis, and clearer estimation workflows.",
+  },
+  {
+    icon: ClipboardList,
+    title: "Project Planning",
+    desc: "Turn project requirements into organised plans, work packages, schedules, and supporting documentation.",
+  },
+  {
+    icon: FileText,
+    title: "Construction Documentation",
+    desc: "Streamline technical documentation and keep project information structured, accessible, and easier to manage.",
+  },
+];
+
+export default function ConstructionSection() {
+  return (
+    <section id="construction" className="relative overflow-hidden py-16 md:py-24 lg:py-32">
+      <div className="absolute inset-0">
+        <Image
+          src="/images/construction-hero.jpg"
+          alt="Construction and engineering site"
+          fill
+          quality={90}
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-midnight-950/80" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_20%,rgba(168,85,247,0.16),transparent_34%),radial-gradient(circle_at_15%_80%,rgba(245,130,31,0.12),transparent_32%)]" />
+      </div>
+
+      <div className="relative z-10 px-5 sm:px-6 lg:px-8 xl:px-12">
+        <div className="mx-auto w-full max-w-7xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.55 }}
+            className="mb-10 max-w-3xl md:mb-14"
+          >
+            <span className="mb-4 inline-flex rounded-full border border-orange-400/20 bg-orange-400/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-orange-300 md:px-4">
+              Construction & Engineering
+            </span>
+            <h2 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
+              Construction technology built around{" "}
+              <span className="bg-gradient-to-r from-orange-300 via-amber-300 to-purple-300 bg-clip-text text-transparent">
+                smarter project workflows.
+              </span>
+            </h2>
+            <p className="max-w-2xl text-sm leading-relaxed text-midnight-200 md:text-base">
+              Combine construction expertise with practical AI tools for estimating,
+              planning, documentation, and project information management.
+            </p>
+          </motion.div>
+
+          <div className="grid gap-6 lg:grid-cols-3 lg:gap-8">
+            <div className="grid gap-3 sm:grid-cols-2 lg:col-span-2 md:gap-4">
+              {solutions.map((solution, i) => (
+                <motion.div
+                  key={solution.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.07 }}
+                  className="group rounded-2xl border border-white/10 bg-white/[0.055] p-5 shadow-2xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-orange-300/20 hover:bg-white/[0.09] md:p-6"
+                >
+                  <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-orange-300/15 bg-orange-400/10 text-orange-300">
+                    <solution.icon size={21} />
+                  </div>
+                  <h3 className="mb-2 text-sm font-semibold text-white md:text-base">
+                    {solution.title}
+                  </h3>
+                  <p className="text-xs leading-relaxed text-midnight-300 md:text-sm">
+                    {solution.desc}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55 }}
+              className="relative overflow-hidden rounded-2xl border border-purple-300/15 bg-midnight-950/65 p-6 shadow-2xl backdrop-blur-2xl md:p-7"
+            >
+              <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-purple-500/15 blur-3xl" />
+              <div className="relative">
+                <span className="mb-3 inline-flex rounded-full border border-purple-300/20 bg-purple-400/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-purple-200">
+                  Featured Product
+                </span>
+                <h3 className="mb-3 text-2xl font-bold text-white">AutoBOQ</h3>
+                <p className="mb-6 text-sm leading-relaxed text-midnight-200">
+                  AI-assisted Bill of Quantities generation from project requirements
+                  and technical documentation.
+                </p>
+
+                <div className="mb-6 rounded-xl border border-white/10 bg-black/20 p-4 font-mono text-[11px] text-midnight-300">
+                  <div className="mb-3 flex items-center justify-between border-b border-white/10 pb-2">
+                    <span className="text-white">PROJECT</span>
+                    <span className="text-orange-300">BOQ</span>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex justify-between"><span>Earthworks</span><span>4,200 m³</span></div>
+                    <div className="flex justify-between"><span>Drainage</span><span>1,240 m</span></div>
+                    <div className="flex justify-between"><span>Kerbing</span><span>860 m</span></div>
+                  </div>
+                </div>
+
+                <Link
+                  href="/products/boq-generator"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-orange-300 transition-colors hover:text-orange-200"
+                >
+                  Explore AutoBOQ <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-8 flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/[0.045] p-5 backdrop-blur-xl sm:flex-row sm:items-center sm:justify-between md:mt-10 md:p-6"
+          >
+            <div>
+              <p className="text-sm font-semibold text-white">Have a construction or engineering challenge?</p>
+              <p className="mt-1 text-xs text-midnight-300 md:text-sm">
+                Let&apos;s explore the right combination of engineering expertise and technology.
+              </p>
+            </div>
+            <Link
+              href="/contact?subject=Construction+Quote"
+              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 via-purple-500 to-orange-500 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-950/30 transition-all hover:-translate-y-0.5 hover:shadow-xl"
+            >
+              Start a Project <ArrowRight className="h-4 w-4" />
+            </Link>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+

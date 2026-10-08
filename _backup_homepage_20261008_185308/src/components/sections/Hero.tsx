@@ -16,51 +16,12 @@ const CAPABILITIES = [
   "Industry Solutions",
 ];
 
-// Only keep claims you can stand behind in a reference check.
 const STATS = [
-  { value: "4", label: "live AI products" },
+  { value: "5+", label: "AI products" },
+  { value: "50+", label: "projects delivered" },
   { value: "3", label: "core industries" },
-  { value: "5 days", label: "to a fixed-scope proposal" },
+  { value: "24/7", label: "digital support" },
 ];
-
-type HeroTileProps = {
-  src: string;
-  alt: string;
-  label: string;
-  sizes: string;
-  priority?: boolean;
-  className?: string;
-};
-
-function HeroTile({
-  src,
-  alt,
-  label,
-  sizes,
-  priority = false,
-  className = "",
-}: HeroTileProps) {
-  return (
-    <div
-      className={`relative overflow-hidden rounded-[1.6rem] border border-white/15 shadow-2xl ${className}`}
-    >
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        priority={priority}
-        sizes={sizes}
-        className="object-cover transition-transform duration-700 hover:scale-[1.03]"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-      <div className="absolute bottom-4 left-4">
-        <span className="rounded-full border border-white/15 bg-black/30 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[.16em] text-white/75 backdrop-blur-xl">
-          {label}
-        </span>
-      </div>
-    </div>
-  );
-}
 
 export default function Hero() {
   return (
@@ -82,7 +43,7 @@ export default function Hero() {
             <span className="grid h-6 w-6 place-items-center rounded-full bg-white/10">
               <Sparkles className="h-3.5 w-3.5 text-[#F5B800]" />
             </span>
-            AI products + digital engineering &middot; Zimbabwe
+            AI products + digital engineering · Zimbabwe
           </motion.div>
 
           <motion.h1
@@ -103,8 +64,8 @@ export default function Hero() {
             className="mt-7 max-w-xl text-base leading-7 text-white/62 sm:text-lg"
           >
             Amaryllis Success is an AI product and digital engineering company
-            building practical technology for enterprise, agriculture and
-            construction.
+            building practical technology for agriculture, construction,
+            enterprise and research.
           </motion.p>
 
           <motion.div
@@ -151,7 +112,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="mt-12 grid max-w-xl grid-cols-3 gap-x-5 gap-y-6 border-t border-white/10 pt-7"
+            className="mt-12 grid max-w-xl grid-cols-2 gap-x-5 gap-y-6 border-t border-white/10 pt-7 sm:grid-cols-4"
           >
             {STATS.map((stat) => (
               <div key={stat.label}>
@@ -166,39 +127,64 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Visual: three image tiles in a grid (no overlaps) + AI products card below */}
         <motion.div
           initial={{ opacity: 0, transform: "translateY(24px)" }}
           animate={{ opacity: 1, transform: "translateY(0)" }}
           transition={{ duration: 0.8, delay: 0.12 }}
-          className="relative mx-auto w-full max-w-[590px]"
+          className="relative mx-auto h-[500px] w-full max-w-[590px] sm:h-[570px] lg:h-[620px]"
         >
-          <div className="pointer-events-none absolute -bottom-6 right-10 h-28 w-28 rounded-full bg-[#7B2FBE]/20 blur-[70px]" />
+          <div className="absolute inset-x-8 top-8 bottom-8 rounded-[2rem] border border-white/10 bg-white/[0.025] shadow-2xl backdrop-blur-sm" />
 
-          <div className="grid h-[420px] grid-cols-2 grid-rows-2 gap-3 sm:h-[480px] lg:h-[500px]">
-            <HeroTile
-              src="/images/agriculture-hero.jpg"
-              alt="Smart agriculture and crop production"
-              label="Smart Agriculture"
-              sizes="(max-width: 1024px) 50vw, 30vw"
-              className="row-span-2"
-            />
-            <HeroTile
+          <div className="absolute right-0 top-0 h-[53%] w-[68%] overflow-hidden rounded-[1.8rem] border border-white/15 shadow-2xl">
+            <Image
               src="/images/it-hero.jpg"
               alt="Digital engineering and enterprise technology"
-              label="Enterprise Tech"
-              sizes="(max-width: 1024px) 50vw, 30vw"
+              fill
               priority
+              sizes="(max-width: 1024px) 68vw, 40vw"
+              className="object-cover transition-transform duration-700 hover:scale-[1.03]"
             />
-            <HeroTile
-              src="/images/construction-hero.jpg"
-              alt="Civil engineering and construction"
-              label="Construction"
-              sizes="(max-width: 1024px) 50vw, 30vw"
-            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+            <div className="absolute bottom-5 left-5">
+              <span className="rounded-full border border-white/15 bg-black/30 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[.16em] text-white/75 backdrop-blur-xl">
+                Digital Engineering
+              </span>
+            </div>
           </div>
 
-          <div className="relative mt-3 rounded-2xl border border-white/15 bg-[#12111a]/95 p-4 shadow-[0_25px_80px_rgba(0,0,0,.45)] backdrop-blur-2xl">
+          <div className="absolute bottom-0 left-0 h-[54%] w-[64%] overflow-hidden rounded-[1.8rem] border border-white/15 shadow-2xl">
+            <Image
+              src="/images/agriculture-hero.jpg"
+              alt="Smart agriculture and crop production"
+              fill
+              sizes="(max-width: 1024px) 64vw, 38vw"
+              className="object-cover transition-transform duration-700 hover:scale-[1.03]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+            <div className="absolute bottom-5 left-5">
+              <span className="rounded-full border border-white/15 bg-black/30 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[.16em] text-white/75 backdrop-blur-xl">
+                Smart Agriculture
+              </span>
+            </div>
+          </div>
+
+          <div className="absolute bottom-[10%] right-[4%] h-[39%] w-[46%] overflow-hidden rounded-[1.5rem] border border-white/20 shadow-[0_30px_90px_rgba(0,0,0,.45)]">
+            <Image
+              src="/images/construction-hero.jpg"
+              alt="Civil engineering and construction"
+              fill
+              sizes="(max-width: 1024px) 46vw, 28vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+            <div className="absolute bottom-4 left-4">
+              <span className="rounded-full border border-white/15 bg-black/30 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[.16em] text-white/75 backdrop-blur-xl">
+                Construction
+              </span>
+            </div>
+          </div>
+
+          <div className="absolute left-[3%] top-[8%] z-20 w-[220px] rounded-2xl border border-white/15 bg-[#12111a]/95 p-4 shadow-[0_25px_80px_rgba(0,0,0,.45)] backdrop-blur-2xl sm:w-[235px]">
             <div className="mb-3 flex items-center justify-between">
               <span className="text-[10px] font-semibold uppercase tracking-[.18em] text-white/45">
                 AI Products
@@ -228,6 +214,8 @@ export default function Hero() {
               ))}
             </div>
           </div>
+
+          <div className="pointer-events-none absolute -bottom-4 right-10 h-28 w-28 rounded-full bg-[#7B2FBE]/20 blur-[70px]" />
         </motion.div>
       </div>
 
